@@ -1,0 +1,146 @@
+[gd_scene load_steps=7 format=3 uid="uid://dtx06y4iw0k62"]
+
+[ext_resource type="Texture2D" uid="uid://dm11j3yfr1uk0" path="res://assets/tileset.png" id="1_rke4c"]
+[ext_resource type="PackedScene" uid="uid://cs2pl1l6ynkt6" path="res://scenes/unit.tscn" id="2_8kbpk"]
+[ext_resource type="Script" path="res://scripts/Camera.gd" id="3_7eanr"]
+[ext_resource type="Script" path="res://scripts/GameManager.gd" id="4_teupw"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vsvau"]
+texture = ExtResource("1_rke4c")
+separation = Vector2i(1, 0)
+texture_region_size = Vector2i(132, 130)
+0:0/0 = 0
+0:1/0 = 0
+0:1/0/custom_data_0 = true
+0:2/0 = 0
+0:2/0/custom_data_0 = true
+0:3/0 = 0
+0:3/0/custom_data_0 = true
+0:4/0 = 0
+0:4/0/custom_data_0 = true
+0:5/0 = 0
+0:6/0 = 0
+0:7/0 = 0
+1:0/0 = 0
+1:1/0 = 0
+1:2/0 = 0
+1:2/0/custom_data_0 = true
+1:3/0 = 0
+1:3/0/custom_data_0 = true
+1:4/0 = 0
+1:4/0/custom_data_0 = true
+1:5/0 = 0
+1:6/0 = 0
+1:7/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+2:1/0/custom_data_0 = true
+2:2/0 = 0
+2:2/0/custom_data_0 = true
+2:3/0 = 0
+2:3/0/custom_data_0 = true
+2:4/0 = 0
+2:4/0/custom_data_0 = true
+2:5/0 = 0
+2:5/0/custom_data_0 = true
+2:6/0 = 0
+2:7/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+3:1/0/custom_data_0 = true
+3:2/0 = 0
+3:2/0/custom_data_0 = true
+3:3/0 = 0
+3:3/0/custom_data_0 = true
+3:4/0 = 0
+3:4/0/custom_data_0 = true
+3:5/0 = 0
+3:5/0/custom_data_0 = true
+3:6/0 = 0
+3:7/0 = 0
+4:0/0 = 0
+4:1/0 = 0
+4:1/0/custom_data_0 = true
+4:2/0 = 0
+4:2/0/custom_data_0 = true
+4:3/0 = 0
+4:3/0/custom_data_0 = true
+4:4/0 = 0
+4:4/0/custom_data_0 = true
+4:5/0 = 0
+4:6/0 = 0
+4:7/0 = 0
+5:0/0 = 0
+5:1/0 = 0
+5:1/0/custom_data_0 = true
+5:2/0 = 0
+5:2/0/custom_data_0 = true
+5:3/0 = 0
+5:3/0/custom_data_0 = true
+5:4/0 = 0
+5:5/0 = 0
+5:6/0 = 0
+5:7/0 = 0
+6:0/0 = 0
+6:0/0/custom_data_0 = true
+6:1/0 = 0
+6:1/0/custom_data_0 = true
+6:2/0 = 0
+6:2/0/custom_data_0 = true
+6:3/0 = 0
+6:3/0/custom_data_0 = true
+6:4/0 = 0
+6:4/0/custom_data_0 = true
+6:5/0 = 0
+6:6/0 = 0
+6:7/0 = 0
+7:0/0 = 0
+7:0/0/custom_data_0 = true
+7:1/0 = 0
+7:1/0/custom_data_0 = true
+7:2/0 = 0
+7:2/0/custom_data_0 = true
+7:3/0 = 0
+7:3/0/custom_data_0 = true
+7:4/0 = 0
+7:4/0/custom_data_0 = true
+7:5/0 = 0
+7:6/0 = 0
+7:7/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_w6s3c"]
+tile_shape = 1
+tile_layout = 4
+tile_size = Vector2i(132, 66)
+custom_data_layer_0/name = "walkable"
+custom_data_layer_0/type = 1
+sources/2 = SubResource("TileSetAtlasSource_vsvau")
+
+[node name="Game" type="Node2D"]
+
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("units")]
+unique_name_in_owner = true
+script = ExtResource("4_teupw")
+units = [NodePath("../Unit"), NodePath("../Unit2"), NodePath("../Unit3")]
+
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+unique_name_in_owner = true
+position_smoothing_enabled = true
+script = ExtResource("3_7eanr")
+target = NodePath("../Unit")
+
+[node name="TileMap" type="TileMap" parent="."]
+y_sort_enabled = true
+tile_set = SubResource("TileSet_w6s3c")
+format = 2
+layer_0/y_sort_enabled = true
+layer_0/tile_data = PackedInt32Array(-65536, 65538, 2, -131072, 65538, 2, -196608, 65538, 2, -131073, 65538, 2, -65537, 327682, 5, -1, 65538, 2, 65536, 65538, 2, 0, 65538, 2, -65535, 65538, 2, -65534, 65538, 2, -131070, 65538, 2, -196606, 65538, 2, -196607, 327682, 6, -131071, 65538, 2, 1, 65538, 2, 65537, 196610, 0, 65538, 65538, 2, 2, 65538, 7, -131074, 2, 5, -65538, 65538, 5, -2, 65538, 5, 65534, 327682, 0, 131070, 393218, 7, 131071, 65538, 2, 65535, 65538, 2)
+
+[node name="Unit" parent="." instance=ExtResource("2_8kbpk")]
+position = Vector2(0, -17)
+
+[node name="Unit2" parent="." instance=ExtResource("2_8kbpk")]
+position = Vector2(65, -115)
+
+[node name="Unit3" parent="." instance=ExtResource("2_8kbpk")]
+position = Vector2(132, 48)

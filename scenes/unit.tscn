@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://cs2pl1l6ynkt6"]
+
+[ext_resource type="Texture2D" uid="uid://cuopvj6s4opej" path="res://assets/character_roundYellow.png" id="1_520f7"]
+[ext_resource type="Script" path="res://scripts/Unit.gd" id="1_aph5o"]
+[ext_resource type="Texture2D" uid="uid://btfttahimns6e" path="res://assets/flair_arrows_down.png" id="3_wxr8j"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_120sj"]
+radius = 20.0
+height = 60.0
+
+[node name="Unit" type="AnimatableBody2D"]
+script = ExtResource("1_aph5o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_520f7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_120sj")
+
+[node name="SelectionIndicator" type="TextureRect" parent="."]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -104.0
+offset_right = 32.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("3_wxr8j")
