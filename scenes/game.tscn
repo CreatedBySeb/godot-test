@@ -135,6 +135,7 @@ script = ExtResource("3_7eanr")
 target = NodePath("../Unit")
 
 [node name="TileMap" type="TileMap" parent="."]
+unique_name_in_owner = true
 y_sort_enabled = true
 tile_set = SubResource("TileSet_w6s3c")
 format = 2
@@ -142,10 +143,9 @@ layer_0/y_sort_enabled = true
 layer_0/tile_data = PackedInt32Array(-65536, 65538, 2, -131072, 65538, 2, -196608, 65538, 2, -131073, 65538, 2, -65537, 327682, 5, -1, 65538, 2, 65536, 65538, 2, 0, 65538, 2, -65535, 65538, 2, -65534, 65538, 2, -131070, 65538, 2, -196606, 65538, 2, -196607, 327682, 6, -131071, 65538, 2, 1, 65538, 2, 65537, 196610, 0, 65538, 65538, 2, 2, 65538, 7, -131074, 2, 5, -65538, 65538, 5, -2, 65538, 5, 65534, 327682, 0, 131070, 393218, 7, 131071, 65538, 2, 65535, 65538, 2)
 
 [node name="Unit" parent="." instance=ExtResource("2_8kbpk")]
-position = Vector2(0, -17)
 
 [node name="Unit2" parent="." instance=ExtResource("2_8kbpk")]
-position = Vector2(65, -115)
+position = Vector2(64, -96)
 
 [node name="Unit3" parent="." instance=ExtResource("2_8kbpk")]
-position = Vector2(132, 48)
+position = Vector2(128, 64)

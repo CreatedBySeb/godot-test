@@ -12,22 +12,26 @@ height = 60.0
 script = ExtResource("1_aph5o")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -30)
 texture = ExtResource("1_520f7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -30)
 shape = SubResource("CapsuleShape2D_120sj")
+disabled = true
 
 [node name="SelectionIndicator" type="TextureRect" parent="."]
 visible = false
+z_index = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -32.0
-offset_top = -104.0
+offset_top = -134.0
 offset_right = 32.0
-offset_bottom = -40.0
+offset_bottom = -70.0
 grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("3_wxr8j")
