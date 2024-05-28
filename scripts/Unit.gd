@@ -1,7 +1,6 @@
 extends AnimatableBody2D
 class_name Unit
 
-@export var move_range: int = 1
 @export var unit_class: UnitClass
 
 @onready var game_manager: GameManager = %GameManager

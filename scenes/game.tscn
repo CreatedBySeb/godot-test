@@ -177,7 +177,6 @@ position = Vector2(64, -96)
 
 [node name="Unit3" parent="." instance=ExtResource("2_8kbpk")]
 position = Vector2(66, 99)
-move_range = 2
 
 [node name="Enemy" parent="." instance=ExtResource("2_8kbpk")]
 position = Vector2(132, 0)

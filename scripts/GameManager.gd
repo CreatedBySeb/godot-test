@@ -61,7 +61,7 @@ func check_turn_ended():
 
 func perform_enemy_moves():
 	for enemy in enemy_units:
-		var valid_moves = get_valid_moves(enemy.location, enemy.move_range)
+		var valid_moves = get_valid_moves(enemy.location, enemy.unit_class.move_range)
 
 		if len(valid_moves) == 0:
 			continue
@@ -123,7 +123,7 @@ func move_unit(unit: Unit, tile: Vector2) -> bool:
 	if unit.moved:
 		return false
 
-	var valid_moves = get_valid_moves(unit.location, unit.move_range)
+	var valid_moves = get_valid_moves(unit.location, unit.unit_class.move_range)
 	if tile not in valid_moves:
 		return false
 

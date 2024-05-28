@@ -5,4 +5,5 @@
 
 [resource]
 script = ExtResource("1_tpt0p")
+move_range = 1
 sprite = ExtResource("2_u7nhn")
