@@ -7,6 +7,7 @@ class_name Unit
 @onready var tilemap: TileMap = %TileMap
 
 var location: Vector2
+var moved = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -23,3 +24,8 @@ func _process(delta):
 func move_to_tile(tile: Vector2):
 	location = tile
 	position = tilemap.to_global(tilemap.map_to_local(tile))
+	moved = true
+
+
+func refresh() -> void:
+	moved = false

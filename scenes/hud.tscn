@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxk85w7vy2hfx"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_wbaq2"]
+[ext_resource type="Theme" uid="uid://bg0ufddcm58v5" path="res://hud_large_theme.tres" id="2_psbrg"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_wbaq2")
+
+[node name="TurnNumber" type="Label" parent="."]
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 101.0
+offset_bottom = 60.0
+theme = ExtResource("2_psbrg")
+text = "Turn 1"

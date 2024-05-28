@@ -8,7 +8,7 @@
 radius = 20.0
 height = 60.0
 
-[node name="Unit" type="AnimatableBody2D"]
+[node name="Unit" type="AnimatableBody2D" groups=["units"]]
 script = ExtResource("1_aph5o")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

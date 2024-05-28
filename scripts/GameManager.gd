@@ -1,15 +1,19 @@
 extends Node
 class_name GameManager
 
-@export var units: Array[Unit] = []
+const DIRECTIONS = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
 
 @onready var action_overlay: TileMap = %ActionOverlay
 @onready var camera: Camera = %Camera
 @onready var tilemap: TileMap = %TileMap
+
+@onready var hud = $HUD
 @onready var select_sound = $SelectSound
 
+@export var units: Array[Unit] = []
+
 var selected_unit = 0
-const DIRECTIONS = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
+var turn = 1
 
 
 # Called when the node enters the scene tree for the first time.
@@ -31,13 +35,27 @@ func _process(delta):
 		var selected_tile = tilemap.local_to_map(tilemap.to_local(global_pos))
 
 		move_unit(units[selected_unit], selected_tile)
+		check_turn_ended()
+
+
+func check_turn_ended():
+	for unit in units:
+		if not unit.moved:
+			return
+
+	get_tree().call_group("units", "refresh")
+	turn += 1
+	update_action_overlay(units[selected_unit])
+	hud.update_hud(self)
 
 
 func select_unit(direction: int):
 	selected_unit = wrap(selected_unit + direction, 0, len(units))
 	camera.target = units[selected_unit]
 	select_sound.play()
-	update_action_overlay(units[selected_unit])
+
+	if not units[selected_unit].moved:
+		update_action_overlay(units[selected_unit])
 
 
 func tile_is_available(tile: Vector2) -> bool:
@@ -71,12 +89,15 @@ func get_valid_moves(from: Vector2, remaining_range: int) -> Array[Vector2]:
 	return valid_moves
 
 
-func update_action_overlay(unit: Unit):
-	var valid_moves = get_valid_moves(unit.location, unit.move_range)
-	
+func clear_action_overlay():
 	action_overlay.remove_layer(0)
 	action_overlay.add_layer(0)
-	
+
+
+func update_action_overlay(unit: Unit):
+	clear_action_overlay()
+
+	var valid_moves = get_valid_moves(unit.location, unit.move_range)
 	for move in valid_moves:
 		action_overlay.set_cell(0, move, 0, Vector2(0, 0))
 
@@ -90,10 +111,13 @@ func unit_on_tile(tile: Vector2) -> Unit:
 
 
 func move_unit(unit: Unit, tile: Vector2) -> bool:
+	if unit.moved:
+		return false
+
 	var valid_moves = get_valid_moves(unit.location, unit.move_range)
 	if tile not in valid_moves:
 		return false
 
 	unit.move_to_tile(tile)
-	update_action_overlay(unit)
+	clear_action_overlay()
 	return true
