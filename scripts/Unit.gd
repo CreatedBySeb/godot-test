@@ -2,9 +2,12 @@ extends AnimatableBody2D
 class_name Unit
 
 @export var move_range: int = 1
+@export var unit_class: UnitClass
 
 @onready var game_manager: GameManager = %GameManager
 @onready var tilemap: TileMap = %TileMap
+
+@onready var sprite: Sprite2D = $Sprite2D
 
 var location: Vector2
 var moved = false
@@ -13,6 +16,7 @@ var moved = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	location = tilemap.local_to_map(tilemap.to_local(position))
+	sprite.texture = unit_class.sprite
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

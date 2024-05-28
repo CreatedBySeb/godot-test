@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cs2pl1l6ynkt6"]
+[gd_scene load_steps=6 format=3 uid="uid://cs2pl1l6ynkt6"]
 
 [ext_resource type="Texture2D" uid="uid://cuopvj6s4opej" path="res://assets/character_roundYellow.png" id="1_520f7"]
 [ext_resource type="Script" path="res://scripts/Unit.gd" id="1_aph5o"]
+[ext_resource type="Resource" uid="uid://c1f1dp1d4mgxw" path="res://classes/warrior_class.tres" id="2_ahd6y"]
 [ext_resource type="Texture2D" uid="uid://btfttahimns6e" path="res://assets/flair_arrows_down.png" id="3_wxr8j"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_120sj"]
@@ -10,6 +11,7 @@ height = 60.0
 
 [node name="Unit" type="AnimatableBody2D" groups=["units"]]
 script = ExtResource("1_aph5o")
+unit_class = ExtResource("2_ahd6y")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -30)

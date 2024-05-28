@@ -22,6 +22,7 @@ func _ready():
 	for unit in units:
 		await unit.ready
 
+	hud.game = self
 	select_unit(0)
 
 
@@ -49,7 +50,7 @@ func check_turn_ended():
 
 	turn += 1
 	await hud.advance_turn()
-	hud.update_hud(self)
+	hud.update_hud()
 	get_tree().call_group("units", "refresh")
 	action_overlay.display_moves(units[selected_unit])
 
@@ -58,6 +59,7 @@ func select_unit(direction: int):
 	selected_unit = wrap(selected_unit + direction, 0, len(units))
 	camera.target = units[selected_unit]
 	select_sound.play()
+	hud.update_hud()
 
 	if not units[selected_unit].moved:
 		action_overlay.display_moves(units[selected_unit])
