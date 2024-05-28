@@ -1,6 +1,8 @@
 extends AnimatableBody2D
 class_name Unit
 
+const DamageNumber = preload("res://scenes/damage_number.tscn")
+
 @export var unit_class: UnitClass
 
 @onready var game_manager: GameManager = %GameManager
@@ -45,4 +47,10 @@ func attack() -> int:
 
 func damage(amount: int) -> bool:
 	health -= amount
+	
+	var damage_number = DamageNumber.instantiate()
+	damage_number.text = str(amount)
+	damage_number.position = position + Vector2(-42, -58)
+	get_parent().add_child(damage_number)
+
 	return health <= 0
