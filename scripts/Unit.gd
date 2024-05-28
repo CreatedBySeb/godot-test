@@ -1,15 +1,17 @@
 extends AnimatableBody2D
 class_name Unit
 
+@export var move_range: int = 1
+
 @onready var game_manager: GameManager = %GameManager
 @onready var tilemap: TileMap = %TileMap
 
-var location = Vector2.ZERO
+var location: Vector2
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	location = tilemap.local_to_map(tilemap.to_local(position))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
