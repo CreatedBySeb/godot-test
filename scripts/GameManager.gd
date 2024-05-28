@@ -18,7 +18,11 @@ var turn = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # TODO: need to select_unit for overlay etc., but doing so seems to use the wrong location here
+	# Wait for all the units to have initialised to ensure board is populated correctly
+	for unit in units:
+		await unit.ready
+
+	select_unit(0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
