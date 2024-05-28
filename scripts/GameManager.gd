@@ -3,7 +3,7 @@ class_name GameManager
 
 const DIRECTIONS = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
 
-@onready var action_overlay: TileMap = %ActionOverlay
+@onready var action_overlay: ActionOverlay = %ActionOverlay
 @onready var camera: Camera = %Camera
 @onready var tilemap: TileMap = %TileMap
 
@@ -51,7 +51,7 @@ func check_turn_ended():
 	await hud.advance_turn()
 	hud.update_hud(self)
 	get_tree().call_group("units", "refresh")
-	update_action_overlay(units[selected_unit])
+	action_overlay.display_moves(units[selected_unit])
 
 
 func select_unit(direction: int):
@@ -60,7 +60,7 @@ func select_unit(direction: int):
 	select_sound.play()
 
 	if not units[selected_unit].moved:
-		update_action_overlay(units[selected_unit])
+		action_overlay.display_moves(units[selected_unit])
 
 
 func tile_is_available(tile: Vector2) -> bool:
@@ -94,19 +94,6 @@ func get_valid_moves(from: Vector2, remaining_range: int) -> Array[Vector2]:
 	return valid_moves
 
 
-func clear_action_overlay():
-	action_overlay.remove_layer(0)
-	action_overlay.add_layer(0)
-
-
-func update_action_overlay(unit: Unit):
-	clear_action_overlay()
-
-	var valid_moves = get_valid_moves(unit.location, unit.move_range)
-	for move in valid_moves:
-		action_overlay.set_cell(0, move, 0, Vector2(0, 0))
-
-
 func unit_on_tile(tile: Vector2) -> Unit:
 	for unit in units:
 		if unit.location == tile:
@@ -124,5 +111,5 @@ func move_unit(unit: Unit, tile: Vector2) -> bool:
 		return false
 
 	unit.move_to_tile(tile)
-	clear_action_overlay()
+	action_overlay.clear()
 	return true
