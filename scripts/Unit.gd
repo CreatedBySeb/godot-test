@@ -8,6 +8,8 @@ class_name Unit
 
 @onready var sprite: Sprite2D = $Sprite2D
 
+var acted = false
+var health: int
 var location: Vector2
 var moved = false
 
@@ -16,6 +18,7 @@ var moved = false
 func _ready():
 	location = tilemap.local_to_map(tilemap.to_local(position))
 	sprite.texture = unit_class.sprite
+	health = unit_class.max_health
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -32,3 +35,14 @@ func move_to_tile(tile: Vector2):
 
 func refresh() -> void:
 	moved = false
+	acted = false
+
+
+func attack() -> int:
+	acted = true
+	return unit_class.base_attack
+
+
+func damage(amount: int) -> bool:
+	health -= amount
+	return health <= 0
