@@ -47,10 +47,11 @@ func check_turn_ended():
 		if not unit.moved:
 			return
 
-	get_tree().call_group("units", "refresh")
 	turn += 1
-	update_action_overlay(units[selected_unit])
+	await hud.advance_turn()
 	hud.update_hud(self)
+	get_tree().call_group("units", "refresh")
+	update_action_overlay(units[selected_unit])
 
 
 func select_unit(direction: int):

@@ -1,6 +1,7 @@
 extends CanvasLayer
 
-@onready var turn_number: Label = $TurnNumber
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var turn_number: Label = %TurnNumber
 
 
 # Called when the node enters the scene tree for the first time.
@@ -15,3 +16,8 @@ func _process(delta):
 
 func update_hud(game: GameManager) -> void:
 	turn_number.text = "Turn " + str(game.turn)
+
+
+func advance_turn() -> void:
+	animation_player.play("your_turn")
+	await animation_player.animation_finished
