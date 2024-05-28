@@ -10,7 +10,8 @@ const DIRECTIONS = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
 @onready var hud = $HUD
 @onready var select_sound = $SelectSound
 
-@export var units: Array[Unit] = []
+@export var enemy_units: Array[Unit] = []
+@export var player_units: Array[Unit] = []
 
 var selected_unit = 0
 var turn = 1
@@ -18,8 +19,8 @@ var turn = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Wait for all the units to have initialised to ensure board is populated correctly
-	for unit in units:
+	# Wait for all the player_units to have initialised to ensure board is populated correctly
+	for unit in player_units + enemy_units:
 		await unit.ready
 
 	hud.game = self
@@ -39,30 +40,44 @@ func _process(delta):
 		var global_pos = space_transform * mouse_pos
 		var selected_tile = tilemap.local_to_map(tilemap.to_local(global_pos))
 
-		move_unit(units[selected_unit], selected_tile)
+		move_unit(player_units[selected_unit], selected_tile)
 		check_turn_ended()
 
 
 func check_turn_ended():
-	for unit in units:
+	for unit in player_units:
 		if not unit.moved:
 			return
+	
+	await hud.enemy_move()
+	await perform_enemy_moves()
 
 	turn += 1
 	await hud.advance_turn()
 	hud.update_hud()
 	get_tree().call_group("units", "refresh")
-	action_overlay.display_moves(units[selected_unit])
+	action_overlay.display_moves(player_units[selected_unit])
+
+
+func perform_enemy_moves():
+	for enemy in enemy_units:
+		var valid_moves = get_valid_moves(enemy.location, enemy.move_range)
+
+		if len(valid_moves) == 0:
+			continue
+
+		var move = valid_moves[0] if len(valid_moves) == 1 else valid_moves[randi() % len(valid_moves)]	
+		move_unit(enemy, move)
 
 
 func select_unit(direction: int):
-	selected_unit = wrap(selected_unit + direction, 0, len(units))
-	camera.target = units[selected_unit]
+	selected_unit = wrap(selected_unit + direction, 0, len(player_units))
+	camera.target = player_units[selected_unit]
 	select_sound.play()
 	hud.update_hud()
 
-	if not units[selected_unit].moved:
-		action_overlay.display_moves(units[selected_unit])
+	if not player_units[selected_unit].moved:
+		action_overlay.display_moves(player_units[selected_unit])
 
 
 func tile_is_available(tile: Vector2) -> bool:
@@ -97,7 +112,7 @@ func get_valid_moves(from: Vector2, remaining_range: int) -> Array[Vector2]:
 
 
 func unit_on_tile(tile: Vector2) -> Unit:
-	for unit in units:
+	for unit in player_units + enemy_units:
 		if unit.location == tile:
 			return unit
 

@@ -1,7 +1,58 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxk85w7vy2hfx"]
+[gd_scene load_steps=7 format=3 uid="uid://dxk85w7vy2hfx"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_wbaq2"]
 [ext_resource type="Theme" uid="uid://bg0ufddcm58v5" path="res://hud_large_theme.tres" id="2_psbrg"]
+
+[sub_resource type="Animation" id="Animation_eyfxl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("YourTurnFlash:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(426.5, 272.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("YourTurnFlash:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EnemyTurnFlash:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EnemyTurnFlash:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1152, 272.5)]
+}
 
 [sub_resource type="Animation" id="Animation_hognu"]
 resource_name = "your_turn"
@@ -31,36 +82,38 @@ tracks/1/keys = {
 "values": [true, false]
 }
 
-[sub_resource type="Animation" id="Animation_eyfxl"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_umk48"]
+resource_name = "enemy_turn"
+step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("YourTurnFlash:position")
+tracks/0/path = NodePath("EnemyTurnFlash:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.25, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(426.5, 272.5)]
+"values": [Vector2(1152, 272.5), Vector2(393, 272.5), Vector2(393, 272.5), Vector2(-366, 272.5)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("YourTurnFlash:visible")
+tracks/1/path = NodePath("EnemyTurnFlash:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false]
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kecf7"]
 _data = {
 "RESET": SubResource("Animation_eyfxl"),
+"enemy_turn": SubResource("Animation_umk48"),
 "your_turn": SubResource("Animation_hognu")
 }
 
@@ -79,16 +132,21 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 8
 
 [node name="TurnNumber" type="Label" parent="MarginContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource("2_psbrg")
 text = "Turn 1"
 
-[node name="UnitPreviews" type="VBoxContainer" parent="MarginContainer"]
+[node name="PlayerPreviews" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="EnemyPreviews" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_override_constants/separation = 8
 
@@ -99,16 +157,36 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 426.5
-offset_top = 272.5
-offset_right = 725.5
-offset_bottom = 375.5
+offset_left = -149.5
+offset_top = -51.5
+offset_right = 149.5
+offset_bottom = 51.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_psbrg")
 theme_override_colors/font_color = Color(0.129412, 0.658824, 1, 1)
 theme_override_font_sizes/font_size = 64
 text = "Your Turn!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemyTurnFlash" type="Label" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 576.0
+offset_top = -51.5
+offset_right = 942.0
+offset_bottom = 51.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_psbrg")
+theme_override_colors/font_color = Color(1, 0.13, 0.3475, 1)
+theme_override_font_sizes/font_size = 64
+text = "Enemy Turn!"
 horizontal_alignment = 1
 vertical_alignment = 1
 

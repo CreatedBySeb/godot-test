@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dtx06y4iw0k62"]
+[gd_scene load_steps=14 format=3 uid="uid://dtx06y4iw0k62"]
 
 [ext_resource type="Texture2D" uid="uid://dm11j3yfr1uk0" path="res://assets/tileset.png" id="1_rke4c"]
 [ext_resource type="PackedScene" uid="uid://cs2pl1l6ynkt6" path="res://scenes/unit.tscn" id="2_8kbpk"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="4_teupw"]
 [ext_resource type="Texture2D" uid="uid://sn3ol1dxmjr4" path="res://assets/tactics-overlay.png" id="5_1sfwv"]
 [ext_resource type="Script" path="res://scripts/ActionOverlay.gd" id="7_cf01m"]
+[ext_resource type="Resource" uid="uid://b1f4lgpoh1t2w" path="res://classes/enemy_warrior_class.tres" id="9_4ilro"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vsvau"]
 texture = ExtResource("1_rke4c")
@@ -135,10 +136,11 @@ sources/0 = SubResource("TileSetAtlasSource_v4s35")
 
 [node name="Game" type="Node2D"]
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("units")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("enemy_units", "player_units")]
 unique_name_in_owner = true
 script = ExtResource("4_teupw")
-units = [NodePath("../Unit"), NodePath("../Unit2"), NodePath("../Unit3")]
+enemy_units = [NodePath("../Enemy"), NodePath("../Enemy2")]
+player_units = [NodePath("../Unit"), NodePath("../Unit2"), NodePath("../Unit3")]
 
 [node name="SelectSound" type="AudioStreamPlayer2D" parent="GameManager"]
 stream = ExtResource("2_j5opk")
@@ -174,5 +176,13 @@ script = ExtResource("7_cf01m")
 position = Vector2(64, -96)
 
 [node name="Unit3" parent="." instance=ExtResource("2_8kbpk")]
-position = Vector2(128, 64)
+position = Vector2(66, 99)
 move_range = 2
+
+[node name="Enemy" parent="." instance=ExtResource("2_8kbpk")]
+position = Vector2(132, 0)
+unit_class = ExtResource("9_4ilro")
+
+[node name="Enemy2" parent="." instance=ExtResource("2_8kbpk")]
+position = Vector2(-198, -33)
+unit_class = ExtResource("9_4ilro")
