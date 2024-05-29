@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnitClass" load_steps=3 format=3 uid="uid://c3530kaypsr7i"]
+
+[ext_resource type="Script" path="res://scripts/UnitClass.gd" id="1_7j363"]
+[ext_resource type="Texture2D" uid="uid://ckjtbgf6ogx7y" path="res://assets/rogue.png" id="2_glthv"]
+
+[resource]
+script = ExtResource("1_7j363")
+base_attack = 5
+base_attack_range = 1
+max_health = 5
+move_range = 2
+name = "Rogue"
+sprite = ExtResource("2_glthv")
