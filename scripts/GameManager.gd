@@ -18,6 +18,7 @@ var all_units:
 	get:
 		return player_units + enemy_units
 
+var player_turn = true
 var selected_unit = 0
 var turn = 1
 
@@ -56,21 +57,36 @@ func _process(delta):
 			perform_attack(unit, target)
 
 		hud.update_hud()
-		check_turn_ended()
+
+		if should_turn_end():
+			end_turn()
+
+	if Input.is_action_just_pressed("end_turn") and player_turn:
+		for unit in player_units:
+			unit.moved = true
+			unit.acted = true
+
+		hud.update_hud()
+		end_turn()
 
 	# TODO: Now that we have actions we should have a manual end turn too
 
 
-func check_turn_ended():
+func should_turn_end() -> bool:
 	for unit in player_units:
 		if not unit.moved:
-			return
-
+			return false
+			
 		if not unit.acted and unit.can_act:
-			return
-	
+			return false
+
+	return true
+
+
+func end_turn():
 	# TODO: need to detect if all enemies have been defeated to speed up spawning more,
 	# can take 1 turn as a reward for clearing before next wave
+	player_turn = false
 
 	await hud.enemy_move()
 	await perform_enemy_moves()
@@ -80,11 +96,13 @@ func check_turn_ended():
 	hud.update_hud()
 	get_tree().call_group("units", "refresh")
 	select_unit(0)
+	player_turn = true
 
 
 func perform_enemy_moves():
 	var skip_animations = GameConfig.visuals__skip_animations
 	var index = len(player_units)
+	# I think the index thing will break if an allied unit is killed
 
 	for enemy in enemy_units:
 		if not skip_animations:
@@ -111,6 +129,7 @@ func perform_enemy_moves():
 				enemy_timer.start()
 				await enemy_timer.timeout
 
+		hud.update_hud()
 		index += 1
 
 
