@@ -7,11 +7,16 @@ const DIRECTIONS = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
 @onready var camera: Camera = %Camera
 @onready var tilemap: TileMap = %TileMap
 
+@onready var enemy_timer = $EnemyTimer
 @onready var hud = $HUD
 @onready var select_sound = $SelectSound
 
 @export var enemy_units: Array[Unit] = []
 @export var player_units: Array[Unit] = []
+
+var all_units:
+	get:
+		return player_units + enemy_units
 
 var selected_unit = 0
 var turn = 1
@@ -30,16 +35,19 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("select_next_unit"):
-		select_unit(1)
+		select_unit(selected_unit + 1)
 	elif Input.is_action_just_pressed("select_prev_unit"):
-		select_unit(-1)
+		select_unit(selected_unit - 1)
 
 	if Input.is_action_just_pressed("click"):
+		var unit = all_units[selected_unit]
+		if unit not in player_units:
+			return
+
 		var mouse_pos = get_viewport().get_mouse_position()
 		var space_transform = camera.get_canvas_transform().affine_inverse()
 		var global_pos = space_transform * mouse_pos
 		var selected_tile = tilemap.local_to_map(tilemap.to_local(global_pos))
-		var unit = player_units[selected_unit]
 
 		if not unit.moved:
 			move_unit(unit, selected_tile)
@@ -69,31 +77,42 @@ func check_turn_ended():
 	await hud.advance_turn()
 	hud.update_hud()
 	get_tree().call_group("units", "refresh")
-	action_overlay.display_moves(player_units[selected_unit])
+	select_unit(0)
 
 
 func perform_enemy_moves():
-	for enemy in enemy_units:
-		var valid_moves = get_valid_moves(enemy.location, enemy.unit_class.move_range)
+	var index = len(player_units)
 
+	for enemy in enemy_units:
+		select_unit(index)
+		enemy_timer.start()
+		await enemy_timer.timeout
+
+		var valid_moves = get_valid_moves(enemy.location, enemy.unit_class.move_range)
 		if len(valid_moves) == 0:
 			continue
 
 		var move = valid_moves[0] if len(valid_moves) == 1 else valid_moves[randi() % len(valid_moves)]	
 		move_unit(enemy, move)
+		enemy_timer.start()
+		await enemy_timer.timeout
 
 		var targets = get_valid_targets(enemy.location, enemy.unit_class.base_attack_range, false)
 		if len(targets) > 0:
 			perform_attack(enemy, targets[0])
+			enemy_timer.start()
+			await enemy_timer.timeout
+
+		index += 1
 
 
-func select_unit(direction: int):
-	selected_unit = wrap(selected_unit + direction, 0, len(player_units))
-	camera.target = player_units[selected_unit]
+func select_unit(index: int):
+	selected_unit = wrap(index, 0, len(all_units))
+	camera.target = all_units[selected_unit]
 	select_sound.play()
 	hud.update_hud()
 	
-	var unit = player_units[selected_unit]
+	var unit = all_units[selected_unit]
 
 	if not unit.moved:
 		action_overlay.display_moves(unit)
@@ -152,7 +171,7 @@ func get_valid_targets(from: Vector2, remaining_range: int, is_player: bool) -> 
 
 
 func unit_on_tile(tile: Vector2) -> Unit:
-	for unit in player_units + enemy_units:
+	for unit in all_units:
 		if unit.location == tile:
 			return unit
 

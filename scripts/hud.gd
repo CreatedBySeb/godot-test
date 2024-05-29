@@ -20,13 +20,13 @@ func update_hud() -> void:
 		var preview = UnitPreview.instantiate()
 		preview.unit = unit
 		player_previews.add_child(preview)
-		preview.set_highlighted(game.player_units[game.selected_unit] == unit)
+		preview.set_highlighted(game.all_units[game.selected_unit] == unit)
 
 	for unit in game.enemy_units:
 		var preview = UnitPreview.instantiate()
 		preview.unit = unit
 		enemy_previews.add_child(preview) 
-		preview.set_highlighted(false)
+		preview.set_highlighted(game.all_units[game.selected_unit] == unit)
 
 
 func advance_turn() -> void:
