@@ -1,7 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://dxk85w7vy2hfx"]
+[gd_scene load_steps=8 format=3 uid="uid://dxk85w7vy2hfx"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_wbaq2"]
 [ext_resource type="Theme" path="res://hud_large_theme.tres" id="2_psbrg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_byxom"]
+bg_color = Color(0.269186, 0.583411, 0.406618, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 
 [sub_resource type="Animation" id="Animation_eyfxl"]
 length = 0.001
@@ -150,6 +157,53 @@ size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_override_constants/separation = 8
 
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_byxom")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="UnitName" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Unit Name"
+
+[node name="UnitHealth" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10/10 HP"
+
+[node name="UnitMoveRange" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Move: 1"
+
+[node name="UnitAttack" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Attack: 5"
+
+[node name="UnitAttackRange" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Range: 1"
+
 [node name="YourTurnFlash" type="Label" parent="."]
 visible = false
 anchors_preset = 8
@@ -157,10 +211,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 426.5
-offset_top = 272.5
-offset_right = 725.5
-offset_bottom = 375.5
+offset_left = -149.5
+offset_top = -51.5
+offset_right = 149.5
+offset_bottom = 51.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_psbrg")
@@ -177,10 +231,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 1152.0
-offset_top = 272.5
-offset_right = 1518.0
-offset_bottom = 375.5
+offset_left = 576.0
+offset_top = -51.5
+offset_right = 942.0
+offset_bottom = 51.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_psbrg")

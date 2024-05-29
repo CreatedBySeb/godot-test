@@ -9,4 +9,5 @@ base_attack = 5
 base_attack_range = 1
 max_health = 10
 move_range = 1
+name = "Warrior"
 sprite = ExtResource("2_u7nhn")
