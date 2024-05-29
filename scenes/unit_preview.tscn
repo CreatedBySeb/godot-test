@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://deuw6bpnnnf24"]
 
 [ext_resource type="Script" path="res://scripts/UnitPreview.gd" id="1_8voqm"]
-[ext_resource type="Texture2D" uid="uid://cuopvj6s4opej" path="res://assets/character_roundYellow.png" id="1_kc340"]
+[ext_resource type="Texture2D" uid="uid://cegr1l52msvjp" path="res://assets/paladin.png" id="2_86g70"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_65g2m"]
 
@@ -16,7 +16,7 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_vy17i")
 clip_contents = true
 custom_minimum_size = Vector2(64, 64)
 offset_right = 64.0
-offset_bottom = 64.0
+offset_bottom = 32.0
 script = ExtResource("1_8voqm")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -24,6 +24,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 2
@@ -33,7 +34,7 @@ theme_override_constants/margin_bottom = 2
 
 [node name="UnitSprite" type="TextureRect" parent="MarginContainer"]
 layout_mode = 2
-texture = ExtResource("1_kc340")
+texture = ExtResource("2_86g70")
 expand_mode = 5
 stretch_mode = 4
 

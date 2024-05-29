@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuopvj6s4opej"
-path="res://.godot/imported/character_roundYellow.png-489bc1ee4a6b6c0f449e2d16c97a820f.ctex"
+uid="uid://cegr1l52msvjp"
+path="res://.godot/imported/paladin.png-f13c38fdd3b938594b33c79d85efda28.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/character_roundYellow.png"
-dest_files=["res://.godot/imported/character_roundYellow.png-489bc1ee4a6b6c0f449e2d16c97a820f.ctex"]
+source_file="res://assets/paladin.png"
+dest_files=["res://.godot/imported/paladin.png-f13c38fdd3b938594b33c79d85efda28.ctex"]
 
 [params]
 

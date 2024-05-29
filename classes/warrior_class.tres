@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="UnitClass" load_steps=3 format=3 uid="uid://c1f1dp1d4mgxw"]
 
 [ext_resource type="Script" path="res://scripts/UnitClass.gd" id="1_tpt0p"]
-[ext_resource type="Texture2D" uid="uid://cuopvj6s4opej" path="res://assets/character_roundYellow.png" id="2_u7nhn"]
+[ext_resource type="Texture2D" uid="uid://cegr1l52msvjp" path="res://assets/paladin.png" id="2_caect"]
 
 [resource]
 script = ExtResource("1_tpt0p")
@@ -10,4 +10,4 @@ base_attack_range = 1
 max_health = 10
 move_range = 1
 name = "Warrior"
-sprite = ExtResource("2_u7nhn")
+sprite = ExtResource("2_caect")
