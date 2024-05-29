@@ -3,17 +3,20 @@ class_name Unit
 
 const DamageNumber = preload("res://scenes/damage_number.tscn")
 
+const ACTED_COLOUR = Color(.75, .75, .75, 1)
+const READY_COLOUR = Color(1, 1, 1, 1)
+
 @export var unit_class: UnitClass
 
-@onready var game_manager: GameManager = %GameManager
+@onready var game: GameManager = %GameManager
 @onready var tilemap: TileMap = %TileMap
 
 @onready var sprite: Sprite2D = $Sprite2D
 
-var acted = false
+var acted: bool = false
 var health: int
 var location: Vector2
-var moved = false
+var moved: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -25,7 +28,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var selected = game_manager.all_units[game_manager.selected_unit] == self
+	var selected = game.all_units[game.selected_unit] == self
 	$SelectionIndicator.visible = selected
 
 
@@ -38,10 +41,12 @@ func move_to_tile(tile: Vector2):
 func refresh() -> void:
 	moved = false
 	acted = false
+	sprite.modulate = READY_COLOUR
 
 
 func attack() -> int:
 	acted = true
+	sprite.modulate = ACTED_COLOUR
 	return unit_class.base_attack
 
 

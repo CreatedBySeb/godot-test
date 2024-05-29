@@ -1,5 +1,6 @@
 extends ColorRect
 
+const ACTED_COLOUR = Color(.75, .75, .75, 1)
 const ACTIVE_COLOUR = Color(1, 1, 1, 1)
 const ACTIVE_HEIGHT = 64
 const INACTIVE_COLOUR = Color(0.5, 0.5, 0.5, 1)
@@ -25,3 +26,4 @@ func set_highlighted(highlighted: bool) -> void:
 
 func update():
 	progress_bar.value = unit.health
+	sprite.modulate = ACTED_COLOUR if unit.moved and unit.acted else ACTIVE_COLOUR
