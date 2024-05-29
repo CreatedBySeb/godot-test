@@ -18,6 +18,11 @@ var health: int
 var location: Vector2
 var moved: bool = false
 
+var can_act: bool:
+	get:
+		var targets = game.get_valid_targets(location, unit_class.base_attack_range, self in game.player_units)
+		return len(targets) > 0
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -63,8 +63,10 @@ func _process(delta):
 
 func check_turn_ended():
 	for unit in player_units:
-		# TODO: Add second check if the unit can act and if they have acted
 		if not unit.moved:
+			return
+
+		if not unit.acted and unit.can_act:
 			return
 	
 	# TODO: need to detect if all enemies have been defeated to speed up spawning more,
