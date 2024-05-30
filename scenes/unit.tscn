@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cs2pl1l6ynkt6"]
+[gd_scene load_steps=5 format=3 uid="uid://cs2pl1l6ynkt6"]
 
 [ext_resource type="Script" path="res://scripts/Unit.gd" id="1_aph5o"]
 [ext_resource type="Resource" uid="uid://c1f1dp1d4mgxw" path="res://classes/warrior_class.tres" id="2_ahd6y"]
 [ext_resource type="Texture2D" uid="uid://cegr1l52msvjp" path="res://assets/paladin.png" id="3_2mfjj"]
-[ext_resource type="Texture2D" uid="uid://btfttahimns6e" path="res://assets/flair_arrows_down.png" id="3_wxr8j"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_120sj"]
 radius = 20.0
@@ -22,19 +21,3 @@ texture = ExtResource("3_2mfjj")
 position = Vector2(0, -30)
 shape = SubResource("CapsuleShape2D_120sj")
 disabled = true
-
-[node name="SelectionIndicator" type="TextureRect" parent="."]
-visible = false
-z_index = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_top = -134.0
-offset_right = 32.0
-offset_bottom = -70.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("3_wxr8j")

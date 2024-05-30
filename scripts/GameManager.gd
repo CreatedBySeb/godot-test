@@ -5,6 +5,7 @@ const DIRECTIONS = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
 
 @onready var action_overlay: ActionOverlay = %ActionOverlay
 @onready var camera: Camera = %Camera
+@onready var cursor: Cursor = %Cursor
 @onready var tilemap: TileMap = %TileMap
 
 @onready var enemy_timer = $EnemyTimer
@@ -81,7 +82,7 @@ func should_turn_end() -> bool:
 	for unit in player_units:
 		if not unit.moved:
 			return false
-			
+
 		if not unit.acted and unit.can_act:
 			return false
 
@@ -119,9 +120,9 @@ func perform_enemy_moves():
 		if len(valid_moves) == 0:
 			continue
 
-		var move = valid_moves[0] if len(valid_moves) == 1 else valid_moves[randi() % len(valid_moves)]	
+		var move = valid_moves[0] if len(valid_moves) == 1 else valid_moves[randi() % len(valid_moves)]
 		move_unit(enemy, move)
-		
+
 		if not skip_animations:
 			enemy_timer.start()
 			await enemy_timer.timeout
@@ -141,9 +142,10 @@ func perform_enemy_moves():
 func select_unit(index: int):
 	selected_unit = wrap(index, 0, len(all_units))
 	camera.target = all_units[selected_unit]
+	cursor.target = all_units[selected_unit]
 	select_sound.play()
 	hud.update_hud()
-	
+
 	var unit = all_units[selected_unit]
 
 	if not unit.moved:
@@ -157,7 +159,7 @@ func select_unit(index: int):
 func tile_is_available(tile: Vector2) -> bool:
 	if unit_on_tile(tile):
 		return false
-	
+
 	var tile_data = tilemap.get_cell_tile_data(0, tile)
 	if !tile_data or !tile_data.get_custom_data("walkable"):
 		return false
@@ -172,7 +174,7 @@ func get_valid_moves(from: Vector2, remaining_range: int) -> Array[Vector2]:
 		for direction in DIRECTIONS:
 			if !tile_is_available(from + direction):
 				continue
-			
+
 			valid_moves.append(from + direction)
 			valid_moves.append_array(get_valid_moves(from + direction, remaining_range - 1))
 	else:
@@ -234,7 +236,7 @@ func perform_attack(attacker: Unit, defender: Unit) -> bool:
 
 	var damage = attacker.attack()
 	var dead = defender.damage(damage)
-	
+
 	if dead:
 		enemy_units.erase(defender)
 		defender.queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dtx06y4iw0k62"]
+[gd_scene load_steps=16 format=3 uid="uid://dtx06y4iw0k62"]
 
 [ext_resource type="Texture2D" uid="uid://dm11j3yfr1uk0" path="res://assets/tileset.png" id="1_rke4c"]
 [ext_resource type="PackedScene" uid="uid://cs2pl1l6ynkt6" path="res://scenes/unit.tscn" id="2_8kbpk"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/ActionOverlay.gd" id="7_cf01m"]
 [ext_resource type="Resource" uid="uid://b1f4lgpoh1t2w" path="res://classes/enemy_warrior_class.tres" id="9_4ilro"]
 [ext_resource type="Resource" uid="uid://c3530kaypsr7i" path="res://classes/rogue_class.tres" id="9_22ed4"]
+[ext_resource type="PackedScene" uid="uid://cjs28jaadkqrg" path="res://scenes/cursor.tscn" id="11_de1cw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vsvau"]
 texture = ExtResource("1_rke4c")
@@ -191,3 +192,6 @@ unit_class = ExtResource("9_4ilro")
 [node name="Enemy2" parent="." instance=ExtResource("2_8kbpk")]
 position = Vector2(-198, -33)
 unit_class = ExtResource("9_4ilro")
+
+[node name="Cursor" parent="." instance=ExtResource("11_de1cw")]
+unique_name_in_owner = true

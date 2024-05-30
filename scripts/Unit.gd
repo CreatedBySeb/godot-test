@@ -34,7 +34,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var selected = game.all_units[game.selected_unit] == self
-	$SelectionIndicator.visible = selected
 
 
 func move_to_tile(tile: Vector2):
@@ -57,7 +56,7 @@ func attack() -> int:
 
 func damage(amount: int) -> bool:
 	health -= amount
-	
+
 	var damage_number = DamageNumber.instantiate()
 	damage_number.text = str(amount)
 	damage_number.position = position + Vector2(-42, -58)
