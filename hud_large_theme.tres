@@ -1,10 +1,10 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bg0ufddcm58v5"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cncad21dpu0pc"]
 
 [ext_resource type="FontFile" uid="uid://sya5u31hqivm" path="res://assets/kalam/Kalam-Bold.ttf" id="1_o3he0"]
 
 [resource]
 default_font = ExtResource("1_o3he0")
-default_font_size = 32
+default_font_size = 64
 Label/colors/font_color = Color(0.96, 0.66, 0.24, 1)
 Label/colors/font_outline_color = Color(1, 1, 1, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0.74902)

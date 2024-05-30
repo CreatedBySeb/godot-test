@@ -19,6 +19,14 @@ config/icon="res://icon.svg"
 
 GameConfig="*res://scenes/game_config.tscn"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=4
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
 [input]
 
 select_prev_unit={
