@@ -40,6 +40,11 @@ func _process(delta):
 	elif Input.is_action_just_pressed("select_prev_unit"):
 		select_unit(selected_unit - 1)
 
+	if Input.is_action_just_pressed("zoom_in"):
+		camera.incr_zoom()
+	elif Input.is_action_just_pressed("zoom_out"):
+		camera.decr_zoom()
+
 	if Input.is_action_just_pressed("click"):
 		var unit = all_units[selected_unit]
 		if unit not in player_units:
