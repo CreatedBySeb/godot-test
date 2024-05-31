@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dtx06y4iw0k62"]
+[gd_scene load_steps=17 format=3 uid="uid://dtx06y4iw0k62"]
 
 [ext_resource type="Texture2D" uid="uid://dm11j3yfr1uk0" path="res://assets/tileset.png" id="1_rke4c"]
 [ext_resource type="PackedScene" uid="uid://cs2pl1l6ynkt6" path="res://scenes/unit.tscn" id="2_8kbpk"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dxk85w7vy2hfx" path="res://scenes/hud.tscn" id="3_gd6nu"]
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="4_teupw"]
 [ext_resource type="Texture2D" uid="uid://sn3ol1dxmjr4" path="res://assets/tactics-overlay.png" id="5_1sfwv"]
+[ext_resource type="Script" path="res://scripts/LevelMap.gd" id="6_ak6wg"]
 [ext_resource type="Script" path="res://scripts/ActionOverlay.gd" id="7_cf01m"]
 [ext_resource type="Resource" uid="uid://b1f4lgpoh1t2w" path="res://classes/enemy_warrior_class.tres" id="9_4ilro"]
 [ext_resource type="Resource" uid="uid://c3530kaypsr7i" path="res://classes/rogue_class.tres" id="9_22ed4"]
@@ -159,13 +160,14 @@ position_smoothing_enabled = true
 script = ExtResource("3_7eanr")
 target = NodePath("../Unit")
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="LevelMap" type="TileMap" parent="."]
 unique_name_in_owner = true
 y_sort_enabled = true
 tile_set = SubResource("TileSet_w6s3c")
 format = 2
 layer_0/y_sort_enabled = true
 layer_0/tile_data = PackedInt32Array(-65536, 65538, 2, -131072, 65538, 2, -196608, 65538, 2, -131073, 65538, 2, -65537, 327682, 5, -1, 65538, 2, 65536, 65538, 2, 0, 65538, 2, -65535, 65538, 2, -65534, 65538, 2, -131070, 65538, 2, -196606, 65538, 2, -196607, 327682, 6, -131071, 65538, 2, 1, 65538, 2, 65537, 196610, 0, 65538, 65538, 2, 2, 65538, 7, -131074, 2, 5, -65538, 65538, 5, -2, 65538, 5, 65534, 327682, 0, 131070, 393218, 7, 131071, 65538, 2, 65535, 65538, 2)
+script = ExtResource("6_ak6wg")
 
 [node name="ActionOverlay" type="TileMap" parent="."]
 unique_name_in_owner = true
@@ -195,3 +197,5 @@ unit_class = ExtResource("9_4ilro")
 
 [node name="Cursor" parent="." instance=ExtResource("11_de1cw")]
 unique_name_in_owner = true
+location_offset = Vector2(0, -40)
+target_offset = Vector2(0, -80)

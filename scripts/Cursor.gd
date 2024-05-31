@@ -1,9 +1,12 @@
 extends Node2D
 class_name Cursor
 
+@onready var level: LevelMap = %LevelMap
+
 @export var location: Vector2 = Vector2.ZERO
-@export var offset: Vector2 = Vector2.ZERO
+@export var location_offset: Vector2 = Vector2.ZERO
 @export var target: Node2D
+@export var target_offset: Vector2 = Vector2.ZERO
 
 
 func _ready():
@@ -16,6 +19,6 @@ func _process(delta):
 
 func update():
 	if target:
-		location = target.position
-
-	position = location + offset
+		position = target.position + target_offset
+	else:
+		position = level.map_to_global(location) + location_offset

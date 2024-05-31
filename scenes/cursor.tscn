@@ -48,7 +48,9 @@ _data = {
 
 [node name="Cursor" type="Node2D"]
 script = ExtResource("1_xn4yh")
-offset = Vector2(2.08165e-12, -80)
+location = null
+location_offset = null
+target_offset = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_fpdux")

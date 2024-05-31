@@ -6,7 +6,7 @@ const DIRECTIONS = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
 @onready var action_overlay: ActionOverlay = %ActionOverlay
 @onready var camera: Camera = %Camera
 @onready var cursor: Cursor = %Cursor
-@onready var tilemap: TileMap = %TileMap
+@onready var level: LevelMap = %LevelMap
 
 @onready var enemy_timer = $EnemyTimer
 @onready var hud = $HUD
@@ -15,7 +15,7 @@ const DIRECTIONS = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
 @export var enemy_units: Array[Unit] = []
 @export var player_units: Array[Unit] = []
 
-var all_units:
+var all_units: Array[Unit]:
 	get:
 		return player_units + enemy_units
 
@@ -26,6 +26,8 @@ var turn = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	await level.ready
+
 	# Wait for all the player_units to have initialised to ensure board is populated correctly
 	for unit in player_units + enemy_units:
 		await unit.ready
@@ -46,6 +48,15 @@ func _process(delta):
 	elif Input.is_action_just_pressed("zoom_out"):
 		camera.decr_zoom()
 
+	if Input.is_action_just_pressed("cursor_up"):
+		move_cursor(Vector2.UP)
+	elif Input.is_action_just_pressed("cursor_down"):
+		move_cursor(Vector2.DOWN)
+	elif Input.is_action_just_pressed("cursor_right"):
+		move_cursor(Vector2.RIGHT)
+	elif Input.is_action_just_pressed("cursor_left"):
+		move_cursor(Vector2.LEFT)
+
 	if Input.is_action_just_pressed("click"):
 		var unit = all_units[selected_unit]
 		if unit not in player_units:
@@ -54,7 +65,7 @@ func _process(delta):
 		var mouse_pos = get_viewport().get_mouse_position()
 		var space_transform = camera.get_canvas_transform().affine_inverse()
 		var global_pos = space_transform * mouse_pos
-		var selected_tile = tilemap.local_to_map(tilemap.to_local(global_pos))
+		var selected_tile = level.global_to_map(global_pos)
 
 		if not unit.moved:
 			move_unit(unit, selected_tile)
@@ -160,7 +171,7 @@ func tile_is_available(tile: Vector2) -> bool:
 	if unit_on_tile(tile):
 		return false
 
-	var tile_data = tilemap.get_cell_tile_data(0, tile)
+	var tile_data = level.get_cell_tile_data(0, tile)
 	if !tile_data or !tile_data.get_custom_data("walkable"):
 		return false
 
@@ -224,6 +235,29 @@ func move_unit(unit: Unit, tile: Vector2) -> bool:
 	unit.move_to_tile(tile)
 	action_overlay.display_actions(unit, unit in player_units)
 	return true
+
+
+func move_cursor(direction: Vector2):
+	var new_location: Vector2 = cursor.location
+
+	if cursor.target:
+		new_location = level.global_to_map(cursor.target.position) + direction
+	else:
+		new_location += direction
+
+	if not level.get_cell_tile_data(0, new_location):
+		return
+
+	var unit = unit_on_tile(new_location)
+	if unit:
+		select_unit(all_units.find(unit))
+	else:
+		cursor.target = null
+		cursor.location = new_location
+		action_overlay.clear()
+		camera.target = null
+		camera.position = level.map_to_global(new_location)
+		
 
 
 func perform_attack(attacker: Unit, defender: Unit) -> bool:

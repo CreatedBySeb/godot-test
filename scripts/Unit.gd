@@ -9,7 +9,7 @@ const READY_COLOUR = Color(1, 1, 1, 1)
 @export var unit_class: UnitClass
 
 @onready var game: GameManager = %GameManager
-@onready var tilemap: TileMap = %TileMap
+@onready var level: LevelMap = %LevelMap
 
 @onready var sprite: Sprite2D = $Sprite2D
 
@@ -26,7 +26,7 @@ var can_act: bool:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	location = tilemap.local_to_map(tilemap.to_local(position))
+	location = level.global_to_map(position)
 	sprite.texture = unit_class.sprite
 	health = unit_class.max_health
 
@@ -38,7 +38,7 @@ func _process(delta):
 
 func move_to_tile(tile: Vector2):
 	location = tile
-	position = tilemap.to_global(tilemap.map_to_local(tile))
+	position = level.map_to_global(tile)
 	moved = true
 
 
