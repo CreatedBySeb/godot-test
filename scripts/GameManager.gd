@@ -269,6 +269,7 @@ func perform_attack(attacker: Unit, defender: Unit) -> bool:
 		return false
 
 	var damage = attacker.attack()
+	attacker.play_attack(attacker.location.direction_to(defender.location))
 	var dead = defender.damage(damage)
 
 	if dead:
