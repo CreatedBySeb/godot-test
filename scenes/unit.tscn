@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cs2pl1l6ynkt6"]
+[gd_scene load_steps=12 format=3 uid="uid://cs2pl1l6ynkt6"]
 
 [ext_resource type="Script" path="res://scripts/Unit.gd" id="1_aph5o"]
 [ext_resource type="Resource" uid="uid://c1f1dp1d4mgxw" path="res://classes/warrior_class.tres" id="2_ahd6y"]
@@ -22,6 +22,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, -32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_818k2"]
@@ -88,13 +100,31 @@ tracks/0/keys = {
 "values": [Vector2(0, -32), Vector2(-16, -24), Vector2(0, -32)]
 }
 
+[sub_resource type="Animation" id="Animation_o0pqt"]
+resource_name = "damage"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.8, 0.16, 0.16, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mqb3j"]
 _data = {
 "RESET": SubResource("Animation_d35kx"),
 "attack_east": SubResource("Animation_818k2"),
 "attack_north": SubResource("Animation_i5750"),
 "attack_south": SubResource("Animation_2g7af"),
-"attack_west": SubResource("Animation_chwb0")
+"attack_west": SubResource("Animation_chwb0"),
+"damage": SubResource("Animation_o0pqt")
 }
 
 [node name="Unit" type="AnimatableBody2D" groups=["units"]]

@@ -270,11 +270,12 @@ func perform_attack(attacker: Unit, defender: Unit) -> bool:
 
 	var damage = attacker.attack()
 	attacker.play_attack(attacker.location.direction_to(defender.location))
-	var dead = defender.damage(damage)
+	var dead = await defender.damage(damage)
 
 	if dead:
 		enemy_units.erase(defender)
 		defender.queue_free()
+		hud.update_hud()
 
 	action_overlay.clear()
 	return true

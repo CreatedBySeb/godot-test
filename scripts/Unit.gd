@@ -74,10 +74,14 @@ func play_attack(direction: Vector2):
 func damage(amount: int) -> bool:
 	health -= amount
 
+	animation_player.play("damage")
+
 	var damage_number = DamageNumber.instantiate()
 	damage_number.text = str(amount)
-	damage_number.position = position + Vector2(-42, -58)
+	damage_number.position = position + Vector2(-42, -96)
 	get_parent().add_child(damage_number)
+
+	await animation_player.animation_finished
 
 	return health <= 0
 
