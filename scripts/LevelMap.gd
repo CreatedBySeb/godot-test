@@ -2,6 +2,14 @@ extends TileMap
 class_name LevelMap
 
 
+func _ready():
+	pass
+
+
+func _process(float):
+	pass
+
+
 func global_to_map(pos: Vector2) -> Vector2:
 	return local_to_map(to_local(pos))
 

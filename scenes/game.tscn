@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dtx06y4iw0k62"]
+[gd_scene load_steps=21 format=3 uid="uid://dtx06y4iw0k62"]
 
 [ext_resource type="Texture2D" uid="uid://dm11j3yfr1uk0" path="res://assets/tileset.png" id="1_rke4c"]
 [ext_resource type="PackedScene" uid="uid://cs2pl1l6ynkt6" path="res://scenes/unit.tscn" id="2_8kbpk"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dxk85w7vy2hfx" path="res://scenes/hud.tscn" id="3_gd6nu"]
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="4_teupw"]
 [ext_resource type="Texture2D" uid="uid://sn3ol1dxmjr4" path="res://assets/tactics-overlay.png" id="5_1sfwv"]
+[ext_resource type="Texture2D" uid="uid://de35wj6gvyhqb" path="res://assets/tiles.png" id="5_tgvw0"]
 [ext_resource type="Script" path="res://scripts/LevelMap.gd" id="6_ak6wg"]
 [ext_resource type="Script" path="res://scripts/ActionOverlay.gd" id="7_cf01m"]
 [ext_resource type="Resource" uid="uid://b1f4lgpoh1t2w" path="res://classes/imperial_guard.tres" id="9_4ilro"]
@@ -14,6 +15,37 @@
 [ext_resource type="PackedScene" uid="uid://cjs28jaadkqrg" path="res://scenes/cursor.tscn" id="11_de1cw"]
 [ext_resource type="Resource" uid="uid://eny3j806oejm" path="res://classes/bard.tres" id="11_vf0dd"]
 [ext_resource type="Resource" uid="uid://1gfyq8ki2533" path="res://classes/imperial_marksman.tres" id="13_f25ht"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dm582"]
+texture = ExtResource("5_tgvw0")
+separation = Vector2i(0, 2)
+texture_region_size = Vector2i(132, 130)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -4)
+0:0/0/custom_data_0 = true
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, -4)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, -4)
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(0, -4)
+4:0/0 = 0
+4:0/0/texture_origin = Vector2i(0, -4)
+5:0/0 = 0
+5:0/0/texture_origin = Vector2i(0, -4)
+6:0/0 = 0
+6:0/0/texture_origin = Vector2i(0, -4)
+6:0/0/custom_data_0 = true
+7:0/0 = 0
+7:0/0/texture_origin = Vector2i(0, -4)
+8:0/0 = 0
+8:0/0/texture_origin = Vector2i(0, -4)
+9:0/0 = 0
+9:0/0/texture_origin = Vector2i(0, -4)
+10:0/0 = 0
+10:0/0/texture_origin = Vector2i(0, -4)
+11:0/0 = 0
+11:0/0/texture_origin = Vector2i(0, -4)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vsvau"]
 texture = ExtResource("1_rke4c")
@@ -125,6 +157,7 @@ tile_size = Vector2i(132, 66)
 custom_data_layer_0/name = "walkable"
 custom_data_layer_0/type = 1
 sources/2 = SubResource("TileSetAtlasSource_vsvau")
+sources/1 = SubResource("TileSetAtlasSource_dm582")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v4s35"]
 texture = ExtResource("5_1sfwv")
@@ -168,7 +201,7 @@ y_sort_enabled = true
 tile_set = SubResource("TileSet_w6s3c")
 format = 2
 layer_0/y_sort_enabled = true
-layer_0/tile_data = PackedInt32Array(-65536, 65538, 2, -131072, 65538, 2, -196608, 65538, 2, -131073, 65538, 2, -65537, 327682, 5, -1, 65538, 2, 65536, 65538, 2, 0, 65538, 2, -65535, 65538, 2, -65534, 65538, 2, -131070, 65538, 2, -196606, 65538, 2, -196607, 327682, 6, -131071, 65538, 2, 1, 65538, 2, 65537, 196610, 0, 65538, 65538, 2, 2, 65538, 7, -131074, 2, 5, -65538, 65538, 5, -2, 65538, 5, 65534, 327682, 0, 131070, 393218, 7, 131071, 65538, 2, 65535, 65538, 2)
+layer_0/tile_data = PackedInt32Array(-65536, 1, 0, -131072, 1, 0, -196608, 1, 0, -131073, 1, 0, -65537, 327681, 0, -1, 1, 0, 65536, 1, 0, 0, 393217, 0, -65535, 1, 0, -65534, 1, 0, -131070, 1, 0, -196606, 1, 0, -196607, 458753, 0, -131071, 1, 0, 1, 1, 0, 65537, 524289, 0, 65538, 1, 0, 2, 327681, 0, -131074, 131073, 0, -65538, 655361, 0, -2, 655361, 0, 65534, 65537, 0, 131070, 262145, 0, 131071, 1, 0, 65535, 1, 0)
 script = ExtResource("6_ak6wg")
 
 [node name="ActionOverlay" type="TileMap" parent="."]
