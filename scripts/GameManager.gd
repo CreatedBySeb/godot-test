@@ -106,12 +106,10 @@ func end_turn():
 
 func perform_enemy_moves():
 	var skip_animations = GameConfig.visuals__skip_animations
-	var index = len(player_units)
-	# I think the index thing will break if an allied unit is killed
 
 	for enemy in enemy_units:
 		if not skip_animations:
-			select_unit(index)
+			select_unit(all_units.find(enemy))
 			enemy_timer.start()
 			await enemy_timer.timeout
 			cursor.freeze()
@@ -139,7 +137,6 @@ func perform_enemy_moves():
 
 		hud.update_hud()
 		cursor.unfreeze()
-		index += 1
 
 
 func select_unit(index: int):
@@ -191,19 +188,22 @@ func get_valid_moves(from: Vector2, remaining_range: int) -> Array[Vector2]:
 
 
 func get_valid_targets(from: Vector2, remaining_range: int, is_player: bool) -> Array[Unit]:
-	# This method does not allow for attacking in a diagonal line
 	var all_targets = enemy_units if is_player else player_units
 	var valid_targets: Array[Unit] = []
 
-	for direction in DIRECTIONS:
-		for distance in range(1, remaining_range + 1):
-			var tile = from + direction * distance
+	if remaining_range > 1:
+		for direction in DIRECTIONS:
+			var unit = unit_on_tile(from + direction)
+			if unit in all_targets:
+				valid_targets.append(unit)
 
-			for target in all_targets:
-				if target.location == tile:
-					valid_targets.append(target)
-					break
-
+			valid_targets.append_array(get_valid_targets(from + direction, remaining_range - 1, is_player))
+	else:
+		for direction in DIRECTIONS:
+			var unit = unit_on_tile(from + direction)
+			if unit in all_targets:
+				valid_targets.append(unit)
+	
 	return valid_targets
 
 
