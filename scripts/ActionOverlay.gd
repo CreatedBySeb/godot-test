@@ -1,4 +1,4 @@
-extends TileMap
+extends LevelMap
 class_name ActionOverlay
 
 const OVERLAY_LAYER = 0

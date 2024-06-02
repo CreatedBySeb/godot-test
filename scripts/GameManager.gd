@@ -1,6 +1,12 @@
 extends Node
 class_name GameManager
 
+enum CursorMode {
+	Select,
+	Menu,
+	Action,
+}
+
 const DIRECTIONS = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
 
 @onready var action_overlay: ActionOverlay = %ActionOverlay
@@ -19,6 +25,7 @@ var all_units: Array[Unit]:
 	get:
 		return player_units + enemy_units
 
+var cursor_mode: = CursorMode.Select
 var player_turn = true
 var selected_unit = 0
 var turn = 1
@@ -48,59 +55,40 @@ func _process(delta):
 	elif Input.is_action_just_pressed("zoom_out"):
 		camera.decr_zoom()
 
-	if Input.is_action_just_pressed("cursor_up"):
-		move_cursor(Vector2.UP)
-	elif Input.is_action_just_pressed("cursor_down"):
-		move_cursor(Vector2.DOWN)
-	elif Input.is_action_just_pressed("cursor_right"):
-		move_cursor(Vector2.RIGHT)
-	elif Input.is_action_just_pressed("cursor_left"):
-		move_cursor(Vector2.LEFT)
+	if cursor_mode != CursorMode.Menu:
+		if Input.is_action_just_pressed("cursor_up"):
+			move_cursor(Vector2.UP)
+		elif Input.is_action_just_pressed("cursor_down"):
+			move_cursor(Vector2.DOWN)
+		elif Input.is_action_just_pressed("cursor_right"):
+			move_cursor(Vector2.RIGHT)
+		elif Input.is_action_just_pressed("cursor_left"):
+			move_cursor(Vector2.LEFT)
 
-	if Input.is_action_just_pressed("click"):
-		var unit = all_units[selected_unit]
-		if unit not in player_units:
-			return
-
-		var mouse_pos = get_viewport().get_mouse_position()
-		var space_transform = camera.get_canvas_transform().affine_inverse()
-		var global_pos = space_transform * mouse_pos
-		var selected_tile = level.global_to_map(global_pos)
-
-		if not unit.moved:
-			move_unit(unit, selected_tile)
-		elif not unit.acted:
-			var target = unit_on_tile(selected_tile)
-			perform_attack(unit, target)
-
-		hud.update_hud()
-
-		if should_turn_end():
-			end_turn()
-
-	if Input.is_action_just_pressed("end_turn") and player_turn:
-		for unit in player_units:
-			unit.moved = true
-			unit.acted = true
-
-		hud.update_hud()
-		end_turn()
-
-	# TODO: Now that we have actions we should have a manual end turn too
+	if cursor_mode == CursorMode.Select and Input.is_action_just_pressed("select"):
+		cursor_mode = CursorMode.Menu
+		cursor.freeze()
+		hud.present_menu(cursor.target if cursor.target in player_units else null)
 
 
-func should_turn_end() -> bool:
+func should_turn_end():
 	for unit in player_units:
 		if not unit.moved:
-			return false
+			return
 
 		if not unit.acted and unit.can_act:
-			return false
+			return
 
-	return true
+	end_turn()
 
 
 func end_turn():
+	for unit in player_units:
+		unit.moved = true
+		unit.acted = true
+
+	hud.update_hud()
+
 	# TODO: need to detect if all enemies have been defeated to speed up spawning more,
 	# can take 1 turn as a reward for clearing before next wave
 	player_turn = false
@@ -126,6 +114,9 @@ func perform_enemy_moves():
 			select_unit(index)
 			enemy_timer.start()
 			await enemy_timer.timeout
+			cursor.freeze()
+			enemy_timer.start()
+			await enemy_timer.timeout
 
 		var valid_moves = get_valid_moves(enemy.location, enemy.unit_class.move_range)
 		if len(valid_moves) == 0:
@@ -147,6 +138,7 @@ func perform_enemy_moves():
 				await enemy_timer.timeout
 
 		hud.update_hud()
+		cursor.unfreeze()
 		index += 1
 
 
@@ -179,7 +171,7 @@ func tile_is_available(tile: Vector2) -> bool:
 
 
 func get_valid_moves(from: Vector2, remaining_range: int) -> Array[Vector2]:
-	var valid_moves: Array[Vector2] = []
+	var valid_moves: Array[Vector2] = [from]
 
 	if remaining_range > 1:
 		for direction in DIRECTIONS:
@@ -238,25 +230,35 @@ func move_unit(unit: Unit, tile: Vector2) -> bool:
 
 
 func move_cursor(direction: Vector2):
+	if cursor_mode == CursorMode.Menu:
+		return
+
+	var map = level if cursor_mode == CursorMode.Select else action_overlay
 	var new_location: Vector2 = cursor.location
 
 	if cursor.target:
-		new_location = level.global_to_map(cursor.target.position) + direction
+		new_location = map.global_to_map(cursor.target.position) + direction
 	else:
 		new_location += direction
 
-	if not level.get_cell_tile_data(0, new_location):
+	if not map.get_cell_tile_data(0, new_location):
 		return
 
 	var unit = unit_on_tile(new_location)
 	if unit:
-		select_unit(all_units.find(unit))
+		if cursor_mode == CursorMode.Select:
+			select_unit(all_units.find(unit))
+		else:
+			cursor.target = unit
+			camera.target = unit
 	else:
 		cursor.target = null
 		cursor.location = new_location
-		action_overlay.clear()
 		camera.target = null
-		camera.position = level.map_to_global(new_location)
+		camera.position = map.map_to_global(new_location)
+
+		if cursor_mode == CursorMode.Select:
+			action_overlay.clear()
 		
 
 

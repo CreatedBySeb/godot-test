@@ -56,9 +56,9 @@ _data = {
 }
 
 [node name="DamageNumber" type="Label"]
-offset_left = -40.0
+offset_left = -42.0
 offset_top = -26.0
-offset_right = 40.0
+offset_right = 38.0
 offset_bottom = 26.0
 theme = ExtResource("1_na3i6")
 theme_override_font_sizes/font_size = 32

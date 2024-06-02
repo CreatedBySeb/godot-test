@@ -151,7 +151,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_override_constants/separation = 8
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="UnitInfo" type="PanelContainer" parent="."]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -162,43 +162,93 @@ grow_vertical = 0
 size_flags_vertical = 8
 theme = ExtResource("3_sjp1m")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UnitInfo"]
 layout_mode = 2
 theme = ExtResource("3_sjp1m")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UnitInfo/MarginContainer"]
 layout_mode = 2
 theme = ExtResource("3_sjp1m")
 
-[node name="UnitName" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+[node name="UnitName" type="Label" parent="UnitInfo/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_sjp1m")
 text = "Unit Name"
 
-[node name="UnitHealth" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+[node name="UnitHealth" type="Label" parent="UnitInfo/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_sjp1m")
 text = "10/10 HP"
 
-[node name="UnitMoveRange" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+[node name="UnitMoveRange" type="Label" parent="UnitInfo/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_sjp1m")
 text = "Move: 1"
 
-[node name="UnitAttack" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+[node name="UnitAttack" type="Label" parent="UnitInfo/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_sjp1m")
 text = "Attack: 5"
 
-[node name="UnitAttackRange" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+[node name="UnitAttackRange" type="Label" parent="UnitInfo/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_sjp1m")
 text = "Range: 1"
+
+[node name="ActionMenu" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+theme = ExtResource("3_sjp1m")
+
+[node name="MarginContainer" type="MarginContainer" parent="ActionMenu"]
+layout_mode = 2
+theme = ExtResource("3_sjp1m")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ActionMenu/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("3_sjp1m")
+
+[node name="ButtonMove" type="Button" parent="ActionMenu/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../ButtonEndTurn")
+focus_neighbor_right = NodePath("../ButtonAttack")
+toggle_mode = true
+text = "Move"
+
+[node name="ButtonAttack" type="Button" parent="ActionMenu/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../ButtonMove")
+focus_neighbor_right = NodePath("../ButtonWait")
+toggle_mode = true
+text = "Attack"
+
+[node name="ButtonWait" type="Button" parent="ActionMenu/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../ButtonAttack")
+focus_neighbor_right = NodePath("../ButtonEndTurn")
+text = "Wait"
+
+[node name="ButtonEndTurn" type="Button" parent="ActionMenu/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../ButtonWait")
+focus_neighbor_right = NodePath("../ButtonMove")
+text = "End Turn"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -211,9 +261,9 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 810.5
-offset_top = -51.5
+offset_top = 488.5
 offset_right = 1109.5
-offset_bottom = 51.5
+offset_bottom = 591.5
 grow_vertical = 2
 theme = ExtResource("2_psbrg")
 theme_override_colors/font_color = Color(0.129412, 0.658824, 1, 1)
@@ -228,9 +278,9 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 777.0
-offset_top = -51.5
+offset_top = 488.5
 offset_right = 1143.0
-offset_bottom = 51.5
+offset_bottom = 591.5
 grow_vertical = 2
 theme = ExtResource("2_psbrg")
 theme_override_colors/font_color = Color(1, 0.13, 0.3475, 1)
@@ -238,3 +288,8 @@ theme_override_font_sizes/font_size = 64
 text = "Enemy Turn!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="pressed" from="ActionMenu/MarginContainer/HBoxContainer/ButtonMove" to="." method="_on_move_pressed"]
+[connection signal="pressed" from="ActionMenu/MarginContainer/HBoxContainer/ButtonAttack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="ActionMenu/MarginContainer/HBoxContainer/ButtonWait" to="." method="_on_wait_pressed"]
+[connection signal="pressed" from="ActionMenu/MarginContainer/HBoxContainer/ButtonEndTurn" to="." method="_on_end_turn_pressed"]

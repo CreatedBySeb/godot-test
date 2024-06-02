@@ -89,3 +89,17 @@ func damage(amount: int) -> bool:
 func set_flip(direction: Vector2):
 	if direction.x != -direction.y:
 		sprite.flip_h = direction.x > 0 or direction.y > 0
+
+
+func wait():
+	var old_health = health
+	acted = true
+	moved = true
+	health = clamp(health + 2, 0, unit_class.max_health)
+	
+	if old_health != health:
+		var damage_number = DamageNumber.instantiate()
+		damage_number.healing = true
+		damage_number.text = str(health - old_health)
+		damage_number.position = position + Vector2(-42, -96)
+		get_parent().add_child(damage_number)
