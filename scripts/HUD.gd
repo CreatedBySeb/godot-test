@@ -37,7 +37,7 @@ func _process(delta):
 			present_menu(selected_unit)
 		elif game.cursor_mode == game.CursorMode.Menu:
 			close_menus()
-	
+
 	if Input.is_action_just_pressed("select") and game.cursor_mode == game.CursorMode.Action:
 		var cursor = game.cursor
 
@@ -56,7 +56,11 @@ func _process(delta):
 
 			game.camera.target = selected_unit
 			cursor.target = selected_unit
-			game.perform_attack(selected_unit, target)
+
+			if selected_unit.unit_class.can_heal:
+				game.perform_heal(selected_unit, target)
+			else:
+				game.perform_attack(selected_unit, target)
 
 		close_menus()
 		game.should_turn_end()
@@ -69,8 +73,12 @@ func update_hud() -> void:
 	unit_name.text = selected_unit.unit_class.name
 	unit_health.text = str(selected_unit.health) + "/" + str(selected_unit.unit_class.max_health) + " HP"
 	unit_move_range.text = "Move: " + str(selected_unit.unit_class.move_range)
-	unit_attack.text = "Attack: " + str(selected_unit.unit_class.base_attack)
 	unit_attack_range.text = "Range: " + str(selected_unit.unit_class.base_attack_range)
+
+	if selected_unit.unit_class.can_heal:
+		unit_attack.text = "Heal: " + str(selected_unit.unit_class.base_attack)
+	else:
+		unit_attack.text = "Attack: " + str(selected_unit.unit_class.base_attack)
 
 	for child in player_previews.get_children() + enemy_previews.get_children():
 		child.queue_free()
@@ -105,8 +113,9 @@ func present_menu(unit: Unit) -> void:
 
 	button_move.disabled = not unit or unit.moved
 	button_attack.disabled = not unit or unit.acted or not unit.can_act
+	button_attack.text = "Heal" if unit.unit_class.can_heal else "Attack"
 	button_wait.disabled = not unit or unit.acted
-	
+
 	if not unit:
 		button_end_turn.grab_focus()
 	elif not unit.moved:

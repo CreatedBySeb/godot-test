@@ -202,7 +202,7 @@ func get_valid_targets(from: Vector2, remaining_range: int, is_player: bool) -> 
 			var unit = unit_on_tile(from + direction)
 			if unit in all_targets:
 				valid_targets.append(unit)
-	
+
 	return valid_targets
 
 
@@ -224,7 +224,12 @@ func move_unit(unit: Unit, tile: Vector2) -> bool:
 		return false
 
 	unit.move_to_tile(tile)
-	action_overlay.display_actions(unit, unit in player_units)
+
+	if not unit.acted:
+		action_overlay.display_actions(unit, unit in player_units)
+	else:
+		action_overlay.clear()
+
 	return true
 
 
@@ -260,7 +265,7 @@ func move_cursor(direction: Vector2):
 
 		if cursor_mode == CursorMode.Select:
 			action_overlay.clear()
-		
+
 
 
 func perform_attack(attacker: Unit, defender: Unit) -> bool:
@@ -278,7 +283,31 @@ func perform_attack(attacker: Unit, defender: Unit) -> bool:
 	if dead:
 		enemy_units.erase(defender)
 		defender.queue_free()
-		hud.update_hud()
 
-	action_overlay.clear()
+	hud.update_hud()
+
+	if not attacker.moved:
+		action_overlay.display_moves(attacker)
+	else:
+		action_overlay.clear()
+
 	return true
+
+
+func perform_heal(healer: Unit, target: Unit) -> void:
+	if healer.acted:
+		return
+
+	var valid_targets = get_valid_targets(healer.location, healer.unit_class.base_attack_range, healer not in player_units)
+	if target not in valid_targets:
+		return
+
+	var amount = healer.attack()
+	await target.heal(amount)
+
+	hud.update_hud()
+
+	if not healer.moved:
+		action_overlay.display_moves(healer)
+	else:
+		action_overlay.clear()

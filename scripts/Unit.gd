@@ -30,8 +30,9 @@ var can_act: bool:
 	get:
 		if not game:
 			return false
-		
-		var targets = game.get_valid_targets(location, unit_class.base_attack_range, self in game.player_units)
+
+		var is_player = self in game.player_units
+		var targets = game.get_valid_targets(location, unit_class.base_attack_range, not is_player if unit_class.can_heal else is_player)
 		return len(targets) > 0
 
 
@@ -96,6 +97,17 @@ func damage(amount: int) -> bool:
 	return health <= 0
 
 
+func heal(amount: int):
+	var old_health = health
+	health = clamp(health + amount, 0, unit_class.max_health)
+
+	var damage_number = DamageNumber.instantiate()
+	damage_number.healing = true
+	damage_number.text = str(health - old_health)
+	damage_number.position = position + Vector2(-42, -96)
+	get_parent().add_child(damage_number)
+
+
 func set_flip(direction: Vector2):
 	if direction.x != -direction.y:
 		sprite.flip_h = direction.x > 0 or direction.y > 0
@@ -106,7 +118,7 @@ func wait():
 	acted = true
 	moved = true
 	health = clamp(health + 2, 0, unit_class.max_health)
-	
+
 	if old_health != health:
 		var damage_number = DamageNumber.instantiate()
 		damage_number.healing = true

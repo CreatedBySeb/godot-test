@@ -7,6 +7,7 @@
 script = ExtResource("1_qs1v4")
 base_attack = 8
 base_attack_range = 2
+can_heal = false
 max_health = 5
 move_range = 2
 name = "Imperial Mage"

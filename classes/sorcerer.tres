@@ -7,6 +7,7 @@
 script = ExtResource("1_2skfy")
 base_attack = 10
 base_attack_range = 3
+can_heal = false
 max_health = 15
 move_range = 4
 name = "Kaleem"

@@ -7,6 +7,7 @@
 script = ExtResource("1_w38wi")
 base_attack = 8
 base_attack_range = 1
+can_heal = false
 max_health = 25
 move_range = 1
 name = "Zavad"
