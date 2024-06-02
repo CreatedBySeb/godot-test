@@ -1,3 +1,4 @@
+@tool
 extends AnimatableBody2D
 class_name Unit
 
@@ -15,33 +16,42 @@ const ATTACK_ANIMATIONS = {
 
 @export var unit_class: UnitClass
 
-@onready var game: GameManager = %GameManager
-@onready var level: LevelMap = %LevelMap
-
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
 
 var acted: bool = false
 var health: int
+var game: GameManager
+var level: LevelMap
 var location: Vector2
 var moved: bool = false
 
 var can_act: bool:
 	get:
+		if not game:
+			return false
+		
 		var targets = game.get_valid_targets(location, unit_class.base_attack_range, self in game.player_units)
 		return len(targets) > 0
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	location = level.global_to_map(position)
-	sprite.texture = unit_class.sprite
-	health = unit_class.max_health
+	if not Engine.is_editor_hint():
+		# Setting up here for @tool compatibility
+		game = %GameManager
+		level = %LevelMap
+		location = level.global_to_map(position)
+		sprite.texture = unit_class.sprite
+		health = unit_class.max_health
+		return
+	else:
+		return
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var selected = game.all_units[game.selected_unit] == self
+	if Engine.is_editor_hint():
+		sprite.texture = unit_class.sprite
 
 
 func move_to_tile(tile: Vector2):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dtx06y4iw0k62"]
+[gd_scene load_steps=25 format=3 uid="uid://dtx06y4iw0k62"]
 
 [ext_resource type="Texture2D" uid="uid://dm11j3yfr1uk0" path="res://assets/tileset.png" id="1_rke4c"]
 [ext_resource type="PackedScene" uid="uid://cs2pl1l6ynkt6" path="res://scenes/unit.tscn" id="2_8kbpk"]
@@ -16,6 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://cjs28jaadkqrg" path="res://scenes/cursor.tscn" id="11_de1cw"]
 [ext_resource type="Resource" uid="uid://eny3j806oejm" path="res://classes/bard.tres" id="11_vf0dd"]
 [ext_resource type="Resource" uid="uid://1gfyq8ki2533" path="res://classes/imperial_marksman.tres" id="13_f25ht"]
+[ext_resource type="Resource" uid="uid://damqwulq84fam" path="res://classes/sorcerer.tres" id="14_s4k00"]
+[ext_resource type="Resource" uid="uid://cv2bmrn0na33h" path="res://classes/cleric.tres" id="15_orexb"]
+[ext_resource type="Resource" uid="uid://dniif3u8hvt8b" path="res://classes/imperial_mage.tres" id="16_cleo6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dm582"]
 texture = ExtResource("5_tgvw0")
@@ -178,8 +181,8 @@ sources/0 = SubResource("TileSetAtlasSource_v4s35")
 [node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("enemy_units", "player_units")]
 unique_name_in_owner = true
 script = ExtResource("4_teupw")
-enemy_units = [NodePath("../Enemy"), NodePath("../Enemy2")]
-player_units = [NodePath("../Unit"), NodePath("../Unit2"), NodePath("../Unit3")]
+enemy_units = [NodePath("../Enemy"), NodePath("../Enemy3"), NodePath("../Enemy6"), NodePath("../Enemy2"), NodePath("../Enemy4"), NodePath("../Enemy5")]
+player_units = [NodePath("../Unit"), NodePath("../Unit2"), NodePath("../Unit3"), NodePath("../Unit4"), NodePath("../Unit5")]
 
 [node name="SelectSound" type="AudioStreamPlayer2D" parent="GameManager"]
 stream = ExtResource("2_j5opk")
@@ -207,7 +210,7 @@ y_sort_enabled = true
 tile_set = SubResource("TileSet_w6s3c")
 format = 2
 layer_0/y_sort_enabled = true
-layer_0/tile_data = PackedInt32Array(-65536, 1, 0, -131072, 1, 0, -196608, 1, 0, -131073, 1, 0, -65537, 327681, 0, -1, 1, 0, 65536, 1, 0, 0, 393217, 0, -65535, 1, 0, -65534, 1, 0, -131070, 1, 0, -196606, 1, 0, -196607, 458753, 0, -131071, 1, 0, 1, 1, 0, 65537, 524289, 0, 65538, 1, 0, 2, 327681, 0, -131074, 131073, 0, -65538, 655361, 0, -2, 655361, 0, 65534, 65537, 0, 131070, 262145, 0, 131071, 1, 0, 65535, 1, 0)
+layer_0/tile_data = PackedInt32Array(-65536, 1, 0, -131072, 1, 0, -196608, 1, 0, -131073, 1, 0, -65537, 1, 0, -1, 1, 0, 65536, 1, 0, 0, 393217, 0, -65535, 1, 0, -65534, 1, 0, -131070, 1, 0, -196606, 1, 0, -196607, 1, 0, -131071, 1, 0, 1, 1, 0, 65537, 1, 0, 65538, 1, 0, 2, 327681, 0, -131074, 131073, 0, -65538, 655361, 0, -2, 655361, 0, 65534, 65537, 0, 131070, 262145, 0, 131071, 1, 0, 65535, 1, 0, -131075, 720897, 0, -65539, 655361, 0, -3, 655361, 0, 65533, 196609, 0, 131069, 1, 0, 196605, 1, 0, 196606, 1, 0, 196607, 1, 0, 131072, 1, 0, 131073, 1, 0, 131074, 1, 0, 131075, 1, 0, 65539, 1, 0, 3, 1, 0, -65533, 1, 0, -131069, 458753, 0, -196605, 1, 0, -262141, 393217, 0, -262142, 1, 0, -262143, 1, 0, -262144, 1, 0, -196609, 524289, 0, -196610, 1, 0, -196611, 262145, 0, -262147, 1, 0, -262146, 1, 0, -262145, 1, 0, -327680, 1, 0, -327679, 1, 0, -327678, 327681, 0, -327677, 1, 0, -327676, 1, 0, -262140, 1, 0, -196604, 1, 0, -131068, 1, 0, -65532, 1, 0, 4, 1, 0, 65540, 327681, 0, 131076, 1, 0, 196612, 1, 0, 196611, 524289, 0, 196610, 1, 0, 196609, 1, 0, 196608, 262145, 0, 262143, 1, 0, 262142, 458753, 0, 262141, 1, 0, 262140, 1, 0, 196604, 393217, 0, 131068, 1, 0, 65532, 1, 0, -4, 1, 0, -65540, 1, 0, -131076, 1, 0, -196612, 1, 0, -262148, 1, 0)
 script = ExtResource("6_ak6wg")
 
 [node name="ActionOverlay" type="TileMap" parent="."]
@@ -220,22 +223,47 @@ layer_0/y_sort_enabled = true
 script = ExtResource("7_cf01m")
 
 [node name="Unit" parent="." instance=ExtResource("2_8kbpk")]
+position = Vector2(132, 0)
 
 [node name="Unit2" parent="." instance=ExtResource("2_8kbpk")]
-position = Vector2(64, -96)
+position = Vector2(264, -66)
 unit_class = ExtResource("9_22ed4")
 
 [node name="Unit3" parent="." instance=ExtResource("2_8kbpk")]
-position = Vector2(66, 99)
+position = Vector2(132, 66)
 unit_class = ExtResource("11_vf0dd")
 
+[node name="Unit4" parent="." instance=ExtResource("2_8kbpk")]
+position = Vector2(66, 165)
+unit_class = ExtResource("14_s4k00")
+
+[node name="Unit5" parent="." instance=ExtResource("2_8kbpk")]
+position = Vector2(264, 0)
+unit_class = ExtResource("15_orexb")
+
 [node name="Enemy" parent="." instance=ExtResource("2_8kbpk")]
-position = Vector2(132, 0)
+position = Vector2(-132, -66)
+unit_class = ExtResource("9_4ilro")
+
+[node name="Enemy6" parent="." instance=ExtResource("2_8kbpk")]
+position = Vector2(0, -132)
+unit_class = ExtResource("9_4ilro")
+
+[node name="Enemy3" parent="." instance=ExtResource("2_8kbpk")]
+position = Vector2(-66, -99)
 unit_class = ExtResource("9_4ilro")
 
 [node name="Enemy2" parent="." instance=ExtResource("2_8kbpk")]
-position = Vector2(-198, -33)
+position = Vector2(-198, -99)
 unit_class = ExtResource("13_f25ht")
+
+[node name="Enemy4" parent="." instance=ExtResource("2_8kbpk")]
+position = Vector2(-66, -165)
+unit_class = ExtResource("13_f25ht")
+
+[node name="Enemy5" parent="." instance=ExtResource("2_8kbpk")]
+position = Vector2(-198, -165)
+unit_class = ExtResource("16_cleo6")
 
 [node name="Cursor" parent="." instance=ExtResource("11_de1cw")]
 unique_name_in_owner = true

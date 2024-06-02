@@ -33,13 +33,12 @@ var turn = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	await level.ready
-
-	# Wait for all the player_units to have initialised to ensure board is populated correctly
-	for unit in player_units + enemy_units:
-		await unit.ready
-
 	hud.game = self
+	await level.ready
+	await action_overlay.ready
+	# FIXME: Bit of a bug here with not all units location being set correctly, so one move is missing
+	# But this is better than it never getting called which was happening before
+	await all_units[0].ready
 	select_unit(0)
 
 
