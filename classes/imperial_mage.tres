@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnitClass" load_steps=3 format=3 uid="uid://dniif3u8hvt8b"]
+
+[ext_resource type="Script" path="res://scripts/UnitClass.gd" id="1_qs1v4"]
+[ext_resource type="Texture2D" uid="uid://bwnb5pcdjyi51" path="res://assets/imperial_mage.png" id="2_ryt4b"]
+
+[resource]
+script = ExtResource("1_qs1v4")
+base_attack = 8
+base_attack_range = 2
+max_health = 5
+move_range = 2
+name = "Imperial Mage"
+sprite = ExtResource("2_ryt4b")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://deuw6bpnnnf24"]
 
 [ext_resource type="Script" path="res://scripts/UnitPreview.gd" id="1_8voqm"]
-[ext_resource type="Texture2D" uid="uid://cegr1l52msvjp" path="res://assets/paladin.png" id="2_86g70"]
+[ext_resource type="Texture2D" uid="uid://cegr1l52msvjp" path="res://assets/warrior.png" id="2_clci1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_65g2m"]
 
@@ -34,7 +34,7 @@ theme_override_constants/margin_bottom = 2
 
 [node name="UnitSprite" type="TextureRect" parent="MarginContainer"]
 layout_mode = 2
-texture = ExtResource("2_86g70")
+texture = ExtResource("2_clci1")
 expand_mode = 5
 stretch_mode = 4
 

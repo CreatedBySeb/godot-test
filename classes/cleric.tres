@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnitClass" load_steps=3 format=3 uid="uid://cv2bmrn0na33h"]
+
+[ext_resource type="Script" path="res://scripts/UnitClass.gd" id="1_wipnc"]
+[ext_resource type="Texture2D" uid="uid://blhikgev6dej3" path="res://assets/cleric.png" id="2_4bjtg"]
+
+[resource]
+script = ExtResource("1_wipnc")
+base_attack = 4
+base_attack_range = 2
+max_health = 15
+move_range = 3
+name = "Aliyah"
+sprite = ExtResource("2_4bjtg")

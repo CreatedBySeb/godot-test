@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wvpeh1pwmq7d"
-path="res://.godot/imported/character_roundRed.png-cb1883128673dded5ce287ba0026d07f.ctex"
+uid="uid://b3yvvko64lvkd"
+path="res://.godot/imported/imperial_guard.png-ee7d9f5c35862d91c0c1698e67aa3b30.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/character_roundRed.png"
-dest_files=["res://.godot/imported/character_roundRed.png-cb1883128673dded5ce287ba0026d07f.ctex"]
+source_file="res://assets/imperial_guard.png"
+dest_files=["res://.godot/imported/imperial_guard.png-ee7d9f5c35862d91c0c1698e67aa3b30.ctex"]
 
 [params]
 

@@ -5,9 +5,9 @@
 
 [resource]
 script = ExtResource("1_7j363")
-base_attack = 5
-base_attack_range = 1
-max_health = 5
+base_attack = 6
+base_attack_range = 2
+max_health = 20
 move_range = 2
-name = "Rogue"
+name = "Sofia"
 sprite = ExtResource("2_glthv")

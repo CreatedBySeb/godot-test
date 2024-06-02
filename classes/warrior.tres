@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnitClass" load_steps=3 format=3 uid="uid://c1f1dp1d4mgxw"]
+
+[ext_resource type="Script" path="res://scripts/UnitClass.gd" id="1_w38wi"]
+[ext_resource type="Texture2D" uid="uid://cegr1l52msvjp" path="res://assets/warrior.png" id="2_fcdh8"]
+
+[resource]
+script = ExtResource("1_w38wi")
+base_attack = 8
+base_attack_range = 1
+max_health = 25
+move_range = 1
+name = "Zavad"
+sprite = ExtResource("2_fcdh8")

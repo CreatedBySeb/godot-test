@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnitClass" load_steps=3 format=3 uid="uid://b1f4lgpoh1t2w"]
+
+[ext_resource type="Script" path="res://scripts/UnitClass.gd" id="1_qwx8n"]
+[ext_resource type="Texture2D" uid="uid://b3yvvko64lvkd" path="res://assets/imperial_guard.png" id="2_liotx"]
+
+[resource]
+script = ExtResource("1_qwx8n")
+base_attack = 8
+base_attack_range = 1
+max_health = 15
+move_range = 1
+name = "Imperial Guard"
+sprite = ExtResource("2_liotx")

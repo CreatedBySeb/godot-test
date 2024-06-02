@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnitClass" load_steps=3 format=3 uid="uid://eny3j806oejm"]
+
+[ext_resource type="Script" path="res://scripts/UnitClass.gd" id="1_f5hu0"]
+[ext_resource type="Texture2D" uid="uid://b1dwr6lct13if" path="res://assets/bard.png" id="2_l4h3i"]
+
+[resource]
+script = ExtResource("1_f5hu0")
+base_attack = 4
+base_attack_range = 1
+max_health = 10
+move_range = 3
+name = "Kit"
+sprite = ExtResource("2_l4h3i")

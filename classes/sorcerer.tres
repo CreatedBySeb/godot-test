@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnitClass" load_steps=3 format=3 uid="uid://damqwulq84fam"]
+
+[ext_resource type="Script" path="res://scripts/UnitClass.gd" id="1_2skfy"]
+[ext_resource type="Texture2D" uid="uid://bv1aurcmh7trt" path="res://assets/sorcerer.png" id="2_d0e1x"]
+
+[resource]
+script = ExtResource("1_2skfy")
+base_attack = 10
+base_attack_range = 3
+max_health = 15
+move_range = 4
+name = "Kaleem"
+sprite = ExtResource("2_d0e1x")
