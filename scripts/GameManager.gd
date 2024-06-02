@@ -241,7 +241,9 @@ func move_cursor(direction: Vector2):
 	else:
 		new_location += direction
 
-	if not map.get_cell_tile_data(0, new_location):
+	# Workaround to avoid complex jumping logic
+	if cursor_mode == CursorMode.Select and not map.get_cell_tile_data(0, new_location):
+		# TODO: Implement wrapping instead, this would probably solve both issues
 		return
 
 	var unit = unit_on_tile(new_location)

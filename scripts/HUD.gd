@@ -43,10 +43,17 @@ func _process(delta):
 
 		if button_move.button_pressed:
 			var location = cursor.target.location if cursor.target else cursor.location
+			# Easy way to check if the tile is a valid option
+			if not game.action_overlay.get_cell_tile_data(0, location):
+				return
+
 			game.move_unit(selected_unit, location)
 			cursor.target = selected_unit
 		else:
 			var target = cursor.target
+			if not game.action_overlay.get_cell_tile_data(0, game.action_overlay.global_to_map(target.position)):
+				return
+
 			game.camera.target = selected_unit
 			cursor.target = selected_unit
 			game.perform_attack(selected_unit, target)
