@@ -31,13 +31,82 @@ jobs:
                 path: build/web
             - name: Add coi-serviceworker for Pages
               run: |
-                apt-get update && apt-get install -y curl 
+                apt-get update && apt-get install -y curl
                 curl -fsSL https://github.com/gzuidhof/coi-serviceworker/raw/master/coi-serviceworker.min.js > build/web/coi-serviceworker.min.js
                 sed -i 's#\(		<script src="index.js"></script>\)#		<script src="coi-serviceworker.min.js"></script>\n\1#' build/web/index.html
             - name: Upload Pages Artifact
               uses: actions/upload-pages-artifact@v3
               with:
                 path: build/web
+    export-windows:
+        name: Windows Export
+        runs-on: ubuntu-latest
+        container:
+            image: barichello/godot-ci:4.2.2
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                lfs: true
+            - name: Setup
+              run: |
+                mkdir -v -p ~/.local/share/godot/export_templates/
+                mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+            - name: Windows Build
+              run: |
+                mkdir -v -p build/windows
+                godot --headless --verbose --export-release "Windows Desktop" build/windows/$EXPORT_NAME.exe
+            - name: Upload Artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: windows
+                path: build/windows
+    export-linux:
+        name: Linux Export
+        runs-on: ubuntu-latest
+        container:
+            image: barichello/godot-ci:4.2.2
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                lfs: true
+            - name: Setup
+              run: |
+                mkdir -v -p ~/.local/share/godot/export_templates/
+                mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+            - name: Linux Build
+              run: |
+                mkdir -v -p build/linux
+                godot --headless --verbose --export-release "Linux/X11" build/linux/$EXPORT_NAME.x86_64
+            - name: Upload Artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: linux
+                path: build/linux
+    export-macos:
+        name: macOS Export
+        runs-on: ubuntu-latest
+        container:
+            image: barichello/godot-ci:4.2.2
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                lfs: true
+            - name: Setup
+              run: |
+                mkdir -v -p ~/.local/share/godot/export_templates/
+                mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+            - name: macOS Build
+              run: |
+                mkdir -v -p build/macos
+                godot --headless --verbose --export-release "macOS" build/macos/$EXPORT_NAME.zip
+            - name: Upload Artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: macos
+                path: build/macos
     deploy-pages:
         name: Deploy to Pages
         runs-on: ubuntu-latest
