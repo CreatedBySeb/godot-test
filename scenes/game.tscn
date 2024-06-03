@@ -193,7 +193,7 @@ stream = ExtResource("2_j5opk")
 wait_time = 0.5
 one_shot = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="GameManager"]
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="GameManager"]
 stream = ExtResource("4_k0e4j")
 autoplay = true
 bus = &"Music"

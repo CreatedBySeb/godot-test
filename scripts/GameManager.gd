@@ -14,6 +14,7 @@ const DIRECTIONS = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
 @onready var cursor: Cursor = %Cursor
 @onready var level: LevelMap = %LevelMap
 
+@onready var background_music: AudioStreamPlayer = $BackgroundMusic
 @onready var enemy_timer = $EnemyTimer
 @onready var hud = $HUD
 @onready var select_sound = $SelectSound
@@ -33,6 +34,7 @@ var turn = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	background_music.playing = not GameConfig.audio__mute_music
 	hud.game = self
 	await level.ready
 	await action_overlay.ready
@@ -68,6 +70,10 @@ func _process(delta):
 		cursor_mode = CursorMode.Menu
 		cursor.freeze()
 		hud.present_menu(cursor.target if cursor.target in player_units else null)
+
+	if Input.is_action_just_pressed("mute"):
+		GameConfig.audio__mute_music = not GameConfig.audio__mute_music
+		background_music.playing = not GameConfig.audio__mute_music
 
 
 func should_turn_end():
