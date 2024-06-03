@@ -47,6 +47,7 @@ _data = {
 }
 
 [node name="Cursor" type="Node2D"]
+z_index = 2
 script = ExtResource("1_xn4yh")
 location = null
 location_offset = null

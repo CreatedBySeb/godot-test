@@ -181,8 +181,8 @@ sources/0 = SubResource("TileSetAtlasSource_v4s35")
 [node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("enemy_units", "player_units")]
 unique_name_in_owner = true
 script = ExtResource("4_teupw")
-enemy_units = [NodePath("../Enemy"), NodePath("../Enemy3"), NodePath("../Enemy6"), NodePath("../Enemy2"), NodePath("../Enemy4"), NodePath("../Enemy5")]
-player_units = [NodePath("../Unit"), NodePath("../Unit2"), NodePath("../Unit3"), NodePath("../Unit4"), NodePath("../Unit5")]
+enemy_units = [NodePath("../Enemies/Enemy"), NodePath("../Enemies/Enemy3"), NodePath("../Enemies/Enemy6"), NodePath("../Enemies/Enemy2"), NodePath("../Enemies/Enemy4"), NodePath("../Enemies/Enemy5")]
+player_units = [NodePath("../Units/Unit"), NodePath("../Units/Unit2"), NodePath("../Units/Unit3"), NodePath("../Units/Unit4"), NodePath("../Units/Unit5")]
 
 [node name="SelectSound" type="AudioStreamPlayer2D" parent="GameManager"]
 stream = ExtResource("2_j5opk")
@@ -202,7 +202,7 @@ bus = &"Music"
 unique_name_in_owner = true
 position_smoothing_enabled = true
 script = ExtResource("3_7eanr")
-target = NodePath("../Unit")
+target = NodePath("../Units/Unit")
 
 [node name="LevelMap" type="TileMap" parent="."]
 unique_name_in_owner = true
@@ -222,46 +222,50 @@ format = 2
 layer_0/y_sort_enabled = true
 script = ExtResource("7_cf01m")
 
-[node name="Unit" parent="." instance=ExtResource("2_8kbpk")]
+[node name="Units" type="Node" parent="."]
+
+[node name="Unit" parent="Units" instance=ExtResource("2_8kbpk")]
 position = Vector2(132, 0)
 
-[node name="Unit2" parent="." instance=ExtResource("2_8kbpk")]
+[node name="Unit2" parent="Units" instance=ExtResource("2_8kbpk")]
 position = Vector2(264, -66)
 unit_class = ExtResource("9_22ed4")
 
-[node name="Unit3" parent="." instance=ExtResource("2_8kbpk")]
+[node name="Unit3" parent="Units" instance=ExtResource("2_8kbpk")]
 position = Vector2(132, 66)
 unit_class = ExtResource("11_vf0dd")
 
-[node name="Unit4" parent="." instance=ExtResource("2_8kbpk")]
+[node name="Unit4" parent="Units" instance=ExtResource("2_8kbpk")]
 position = Vector2(66, 165)
 unit_class = ExtResource("14_s4k00")
 
-[node name="Unit5" parent="." instance=ExtResource("2_8kbpk")]
+[node name="Unit5" parent="Units" instance=ExtResource("2_8kbpk")]
 position = Vector2(264, 0)
 unit_class = ExtResource("15_orexb")
 
-[node name="Enemy" parent="." instance=ExtResource("2_8kbpk")]
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("2_8kbpk")]
 position = Vector2(-132, -66)
 unit_class = ExtResource("9_4ilro")
 
-[node name="Enemy6" parent="." instance=ExtResource("2_8kbpk")]
+[node name="Enemy6" parent="Enemies" instance=ExtResource("2_8kbpk")]
 position = Vector2(0, -132)
 unit_class = ExtResource("9_4ilro")
 
-[node name="Enemy3" parent="." instance=ExtResource("2_8kbpk")]
+[node name="Enemy3" parent="Enemies" instance=ExtResource("2_8kbpk")]
 position = Vector2(-66, -99)
 unit_class = ExtResource("9_4ilro")
 
-[node name="Enemy2" parent="." instance=ExtResource("2_8kbpk")]
+[node name="Enemy2" parent="Enemies" instance=ExtResource("2_8kbpk")]
 position = Vector2(-198, -99)
 unit_class = ExtResource("13_f25ht")
 
-[node name="Enemy4" parent="." instance=ExtResource("2_8kbpk")]
+[node name="Enemy4" parent="Enemies" instance=ExtResource("2_8kbpk")]
 position = Vector2(-66, -165)
 unit_class = ExtResource("13_f25ht")
 
-[node name="Enemy5" parent="." instance=ExtResource("2_8kbpk")]
+[node name="Enemy5" parent="Enemies" instance=ExtResource("2_8kbpk")]
 position = Vector2(-198, -165)
 unit_class = ExtResource("16_cleo6")
 
