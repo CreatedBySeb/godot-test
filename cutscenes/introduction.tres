@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="Cutscene" load_steps=20 format=3 uid="uid://cxekajkabd4b3"]
+
+[ext_resource type="Script" path="res://scripts/Cutscene.gd" id="1_77c3n"]
+[ext_resource type="Resource" uid="uid://c1f1dp1d4mgxw" path="res://classes/warrior.tres" id="1_eljwa"]
+[ext_resource type="Script" path="res://scripts/Dialogue.gd" id="2_guv5s"]
+[ext_resource type="Resource" uid="uid://c3530kaypsr7i" path="res://classes/rogue.tres" id="3_xy2hj"]
+[ext_resource type="Resource" uid="uid://cv2bmrn0na33h" path="res://classes/cleric.tres" id="4_8bb4o"]
+[ext_resource type="Resource" uid="uid://damqwulq84fam" path="res://classes/sorcerer.tres" id="5_c6mxg"]
+[ext_resource type="Resource" uid="uid://eny3j806oejm" path="res://classes/bard.tres" id="6_1l2y0"]
+[ext_resource type="Resource" uid="uid://b1f4lgpoh1t2w" path="res://classes/imperial_guard.tres" id="7_g8dxb"]
+
+[sub_resource type="Resource" id="Resource_62spl"]
+script = ExtResource("2_guv5s")
+actor = ExtResource("1_eljwa")
+text = "The imperials have been gaining on us, the village folk simply cannot maintain this pace."
+
+[sub_resource type="Resource" id="Resource_cfswy"]
+script = ExtResource("2_guv5s")
+actor = ExtResource("3_xy2hj")
+text = "At this rate, none of us will make it..."
+
+[sub_resource type="Resource" id="Resource_5tot7"]
+script = ExtResource("2_guv5s")
+actor = ExtResource("4_8bb4o")
+text = "We need to do something, to give the younger and older villagers a chance!"
+
+[sub_resource type="Resource" id="Resource_ciaya"]
+script = ExtResource("2_guv5s")
+actor = ExtResource("5_c6mxg")
+text = "Standing our ground would be madness, the empire is thousands of soldiers strong, who knows how many are in pursuit."
+
+[sub_resource type="Resource" id="Resource_si42j"]
+script = ExtResource("2_guv5s")
+actor = ExtResource("6_1l2y0")
+text = "At least it will be a tale worth telling, when the villagers make it somewhere safe."
+
+[sub_resource type="Resource" id="Resource_lxixy"]
+script = ExtResource("2_guv5s")
+actor = ExtResource("1_eljwa")
+text = "Well said. We may not make it out of here, but we can give the rest of the village a chance."
+
+[sub_resource type="Resource" id="Resource_r2pgx"]
+script = ExtResource("2_guv5s")
+actor = ExtResource("4_8bb4o")
+text = "In this case, we ought to brace ourselves for the trials ahead."
+
+[sub_resource type="Resource" id="Resource_t8h5l"]
+script = ExtResource("2_guv5s")
+actor = ExtResource("5_c6mxg")
+text = "(...Less a trial and more a funeral)"
+
+[sub_resource type="Resource" id="Resource_dlnsk"]
+script = ExtResource("2_guv5s")
+actor = ExtResource("7_g8dxb")
+text = "Brigands! In the name of His Supreme Grace, Emperor Luc, we order you to surrender yourselves and your fellow fugitives at once!"
+
+[sub_resource type="Resource" id="Resource_s7v1u"]
+script = ExtResource("2_guv5s")
+actor = ExtResource("3_xy2hj")
+text = "That about settles it I suppose."
+
+[sub_resource type="Resource" id="Resource_jjdde"]
+script = ExtResource("2_guv5s")
+actor = ExtResource("7_g8dxb")
+text = "Seize them!"
+
+[resource]
+script = ExtResource("1_77c3n")
+dialogue = Array[ExtResource("2_guv5s")]([SubResource("Resource_62spl"), SubResource("Resource_cfswy"), SubResource("Resource_5tot7"), SubResource("Resource_ciaya"), SubResource("Resource_si42j"), SubResource("Resource_lxixy"), SubResource("Resource_r2pgx"), SubResource("Resource_t8h5l"), SubResource("Resource_dlnsk"), SubResource("Resource_s7v1u"), SubResource("Resource_jjdde")])

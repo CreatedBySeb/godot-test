@@ -9,6 +9,8 @@ enum CursorMode {
 
 const DIRECTIONS = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
 
+const IntroCutscene = preload("res://cutscenes/introduction.tres")
+
 @onready var action_overlay: ActionOverlay = %ActionOverlay
 @onready var camera: Camera = %Camera
 @onready var cursor: Cursor = %Cursor
@@ -36,6 +38,7 @@ var turn = 1
 func _ready():
 	background_music.playing = not GameConfig.audio__mute_music
 	hud.game = self
+	hud.play_cutscene(IntroCutscene)
 	await level.ready
 	await action_overlay.ready
 	# FIXME: Bit of a bug here with not all units location being set correctly, so one move is missing
@@ -46,6 +49,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if hud.cutscene_playing:
+		return
+
 	if Input.is_action_just_pressed("select_next_unit"):
 		select_unit(selected_unit + 1)
 	elif Input.is_action_just_pressed("select_prev_unit"):

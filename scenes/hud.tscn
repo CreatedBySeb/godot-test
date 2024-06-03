@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dxk85w7vy2hfx"]
+[gd_scene load_steps=9 format=3 uid="uid://dxk85w7vy2hfx"]
 
 [ext_resource type="Script" path="res://scripts/HUD.gd" id="1_wbaq2"]
 [ext_resource type="Theme" uid="uid://cncad21dpu0pc" path="res://hud_large_theme.tres" id="2_psbrg"]
 [ext_resource type="Theme" uid="uid://588lbdpfgc1c" path="res://hud_regular_theme.tres" id="3_sjp1m"]
+[ext_resource type="PackedScene" uid="uid://ckejtp1jn1ja5" path="res://scenes/dialogue_box.tscn" id="4_qy65n"]
 
 [sub_resource type="Animation" id="Animation_eyfxl"]
 length = 0.001
@@ -199,6 +200,10 @@ unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_sjp1m")
 text = "Range: 1"
+
+[node name="DialogueBox" parent="." instance=ExtResource("4_qy65n")]
+unique_name_in_owner = true
+visible = false
 
 [node name="ActionMenu" type="PanelContainer" parent="."]
 visible = false

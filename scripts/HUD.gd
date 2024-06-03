@@ -1,11 +1,14 @@
 extends CanvasLayer
 
+signal select_pressed
+
 const UnitPreview = preload("res://scenes/unit_preview.tscn")
 
 @onready var button_attack: Button = %ButtonAttack
 @onready var button_end_turn: Button = %ButtonEndTurn
 @onready var button_move: Button = %ButtonMove
 @onready var button_wait: Button = %ButtonWait
+@onready var dialogue_box: DialogueBox = %DialogueBox
 @onready var unit_attack: Label = %UnitAttack
 @onready var unit_attack_range: Label = %UnitAttackRange
 @onready var unit_health: Label = %UnitHealth
@@ -22,8 +25,13 @@ var menu_active: bool:
 	get:
 		return action_menu.visible
 
+var cutscene_playing = false
 var game: GameManager
 var selected_unit: Unit
+
+
+func _ready():
+	await dialogue_box.ready
 
 
 func _process(delta):
@@ -64,6 +72,9 @@ func _process(delta):
 
 		close_menus()
 		game.should_turn_end()
+
+	if Input.is_action_just_pressed("select"):
+		select_pressed.emit()
 
 
 func update_hud() -> void:
@@ -139,6 +150,18 @@ func close_menus() -> void:
 	reset_buttons()
 	game.cursor_mode = game.CursorMode.Select
 	game.cursor.unfreeze()
+
+
+func play_cutscene(cutscene: Cutscene):
+	cutscene_playing = true
+	dialogue_box.visible = true
+
+	for dialogue in cutscene.dialogue:
+		await dialogue_box.display_dialogue(dialogue)
+		await select_pressed	
+
+	dialogue_box.visible = false
+	cutscene_playing = false
 
 
 func _on_end_turn_pressed():
