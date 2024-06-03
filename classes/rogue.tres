@@ -9,6 +9,6 @@ base_attack = 6
 base_attack_range = 2
 can_heal = false
 max_health = 20
-move_range = 2
+move_range = 3
 name = "Sofia"
 sprite = ExtResource("2_glthv")

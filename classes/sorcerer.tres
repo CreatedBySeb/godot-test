@@ -9,6 +9,6 @@ base_attack = 10
 base_attack_range = 3
 can_heal = false
 max_health = 15
-move_range = 4
+move_range = 2
 name = "Kaleem"
 sprite = ExtResource("2_d0e1x")
