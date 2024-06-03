@@ -113,8 +113,10 @@ func present_menu(unit: Unit) -> void:
 
 	button_move.disabled = not unit or unit.moved
 	button_attack.disabled = not unit or unit.acted or not unit.can_act
-	button_attack.text = "Heal" if unit.unit_class.can_heal else "Attack"
 	button_wait.disabled = not unit or unit.acted
+
+	if unit:
+		button_attack.text = "Heal" if unit.unit_class.can_heal else "Attack"
 
 	if not unit:
 		button_end_turn.grab_focus()
