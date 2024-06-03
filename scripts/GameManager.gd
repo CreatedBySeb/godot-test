@@ -272,7 +272,9 @@ func perform_attack(attacker: Unit, defender: Unit) -> bool:
 	if attacker.acted:
 		return false
 
-	var valid_targets = get_valid_targets(attacker.location, attacker.unit_class.base_attack_range, attacker in player_units)
+	var is_player = attacker in player_units
+
+	var valid_targets = get_valid_targets(attacker.location, attacker.unit_class.base_attack_range, is_player)
 	if defender not in valid_targets:
 		return false
 
@@ -281,7 +283,8 @@ func perform_attack(attacker: Unit, defender: Unit) -> bool:
 	var dead = await defender.damage(damage)
 
 	if dead:
-		enemy_units.erase(defender)
+		var units = enemy_units if is_player else player_units
+		units.erase(defender)
 		defender.queue_free()
 
 	hud.update_hud()
